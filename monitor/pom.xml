@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>monitor</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.encoding>utf-8</maven.compiler.encoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>bom-monitor</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>ssh-server</id>
+            <url>sftp://sinosoft:sinosoft123@10.168.2.141:/home/sinosoft/maven/repository</url>
+        </repository>
+        <snapshotRepository>
+            <id>ssh-server</id>
+            <url>sftp://sinosoft:sinosoft123@10.168.2.141:/home/sinosoft/maven/snapshotRepository</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!--maven镜像设置-->
+    <repositories>
+        <repository>
+            <id>nexus-tencentyun</id>
+            <name>Nexus tencentyun</name>
+            <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-tencentyun</id>
+            <name>Nexus tencentyun</name>
+            <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
