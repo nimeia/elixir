@@ -135,6 +135,8 @@
                 <version>4.9.0</version>
             </dependency>
 
+            <!--其它-->
+
         </dependencies>
     </dependencyManagement>
 
@@ -143,6 +145,24 @@
     </profiles>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>build-info</goal>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
