@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+    </parent>
+
     <groupId>org.example</groupId>
     <artifactId>bom</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -21,8 +27,8 @@
         <maven.compiler.target>8</maven.compiler.target>
         <maven.compiler.encoding>utf-8</maven.compiler.encoding>
 
-        <version.spring.cloud>Hoxton.SR8</version.spring.cloud>
-        <version.spring.boot>2.4.0</version.spring.boot>
+        <version.spring.cloud>Hoxton.SR9</version.spring.cloud>
+        <version.spring.boot>2.4.1</version.spring.boot>
         <version.dynamic-datasource>3.2.1</version.dynamic-datasource>
         <version.druid-datasource>1.2.4</version.druid-datasource>
         <version.mybatis.plus>3.4.1</version.mybatis.plus>
@@ -40,13 +46,13 @@
                 <scope>import</scope>
             </dependency>
             <!--spring boot -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${version.spring.boot}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
 
             <!-- 缓存 -->
             <dependency>
@@ -134,24 +140,6 @@
 
     <!--profiles 配置-->
     <profiles>
-        <profile>
-            <id>spring-boot-maven-plugin</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>repackage</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
     <build>
