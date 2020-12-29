@@ -16,9 +16,13 @@
     <modules>
         <module>bom-base</module>
         <module>bom-api</module>
-        <module>bom-restful-api</module>
-        <module>bom-dubbo-api</module>
+        <module>bom-restful</module>
+        <module>bom-dubbo</module>
         <module>bom-monitor</module>
+        <module>bom-mybatis</module>
+        <module>bom-jpa</module>
+        <module>bom-jobs</module>
+        <module>bom-mq</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -61,16 +65,29 @@
                 <version>2.6.0</version>
             </dependency>
 
-            <!--数据源相关依赖-->
+            <!--数据连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${version.druid-datasource}</version>
             </dependency>
+            <!--读写分离-->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${version.dynamic-datasource}</version>
+            </dependency>
+            <!--原生分页辅助-->
+            <dependency>
+                <groupId>com.github.drinkjava2</groupId>
+                <artifactId>jdialects</artifactId>
+                <version>4.0.0.jre8</version>
+            </dependency>
+            <!--sql 日志-->
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>3.9.1</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.log4jdbc</groupId>
@@ -100,7 +117,6 @@
                 <version>${version.spring-boot-admin}</version>
             </dependency>
 
-
             <!-- orm framework -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -109,6 +125,11 @@
             </dependency>
 
             <!--基础工具类-->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.10.8</version>
+            </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
@@ -136,6 +157,18 @@
             </dependency>
 
             <!--其它-->
+            <!--skywalking 日志插件-->
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>8.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-log4j-2.x</artifactId>
+                <version>8.3.0</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
@@ -145,24 +178,71 @@
     </profiles>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                    <include>**/log4j.xml</include>
+                    <include>**/log4j2.xml</include>
+                    <include>**/log4j2-spring.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                    <exclude>**/application*.properties</exclude>
+                    <exclude>**/log4j.xml</exclude>
+                    <exclude>**/log4j2.xml</exclude>
+                    <exclude>**/log4j2-spring.xml</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>repackage</id>
                         <goals>
-                            <goal>build-info</goal>
-                            <goal>repackage</goal>
+                            <goal>revision</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>${start-class}</mainClass>
+                    <verbose>true</verbose>
+                    <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>repackage</id>
+                            <goals>
+                                <goal>build-info</goal>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <mainClass>${start-class}</mainClass>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>

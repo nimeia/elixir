@@ -1,2 +1,14 @@
 server:
   port: 8081
+  address: localhost
+
+spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        url: http://localhost:8081/monitor
+        instance:
+          name: monitor
+          prefer-ip: true
+      context-path: /monitor

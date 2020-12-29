@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    p6spy: info
+  file:
+    name: @project.artifactId@
+    path: ./log
+
+spring:
+  application:
+    name: @project.artifactId@
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
