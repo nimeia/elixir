@@ -19,19 +19,19 @@ public class GlobalConfig {
 
     @PostConstruct
     void init() throws InterruptedException {
-        new Thread(){
-            @Override
-            public void run() {
-                while (true){
-                    logger.info("===========================");
-                    try {
-                        Thread.sleep(500L);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                while (true){
+//                    logger.info("===========================");
+//                    try {
+//                        Thread.sleep(500L);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
 
     }
 }

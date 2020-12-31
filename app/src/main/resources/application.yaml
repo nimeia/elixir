@@ -7,6 +7,11 @@ logging:
   file:
     name: @project.artifactId@
     path: ./log
+sentry:
+#  dsn: https://cda27aec009b46399c18d8475e054d25@o273482.ingest.sentry.io/1488057
+  dsn: http://c6715a73355a45ec948d9e0e668c0233@10.168.2.142:9000/2
+  sentry-client-name: @project.artifactId@
+
 
 spring:
   application:
