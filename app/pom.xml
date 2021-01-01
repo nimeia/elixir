@@ -28,6 +28,17 @@
 
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>bom-jpa</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>bom-restful-api</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>pom</type>
@@ -70,9 +81,32 @@
         </dependency>
     </dependencies>
 
-    <!--打包成spring runnable jar -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <flyway.url>jdbc:mysql://10.168.2.142:3306/app?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;serverTimezone=CTT</flyway.url>
+                <flyway.user>app</flyway.user>
+                <flyway.password>app</flyway.password>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
+            <!--数据库版本管理-->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.22</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <!--打包成spring runnable jar -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

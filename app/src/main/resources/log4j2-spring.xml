@@ -42,6 +42,13 @@
         <Logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error"/>
         <Logger name="org.hibernate.validator.internal.util.Version" level="warn"/>
         <Logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+
+        <Logger name="p6spy" level="debug"/>
+        <!--记录druid-sql的记录-->
+        <logger name="druid.sql.Statement" level="error" additivity="false">
+            <!--<appender-ref ref="Console"/>-->
+        </logger>
+
         <Root level="info">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>

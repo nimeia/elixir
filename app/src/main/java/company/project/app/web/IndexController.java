@@ -3,6 +3,8 @@ package company.project.app.web;
 import io.sentry.Sentry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,10 +27,16 @@ public class IndexController {
         return "success";
     }
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @RequestMapping("errorTest")
     @ResponseBody
     public Object errorTest(){
-        Sentry.captureException(new RuntimeException("google"));
+//        Sentry.captureException(new RuntimeException("google"));
+        jdbcTemplate.execute("select * from user where id = 1000 ");
+        jdbcTemplate.execute("select * from user where id = 2000 ");
+
         if(true){
 //            try {
                 throw new RuntimeException("错误===777");
