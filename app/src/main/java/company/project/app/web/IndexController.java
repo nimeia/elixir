@@ -1,9 +1,10 @@
 package company.project.app.web;
 
-import io.sentry.Sentry;
+import org.jasypt.encryption.StringEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class IndexController {
 
     @RequestMapping()
     @ResponseBody
-    public Object home(){
+    public Object home() {
         logger.info("===google===");
         return "success";
     }
@@ -32,14 +33,14 @@ public class IndexController {
 
     @RequestMapping("errorTest")
     @ResponseBody
-    public Object errorTest(){
+    public Object errorTest() {
 //        Sentry.captureException(new RuntimeException("google"));
         jdbcTemplate.execute("select * from user where id = 1000 ");
         jdbcTemplate.execute("select * from user where id = 2000 ");
 
-        if(true){
+        if (true) {
 //            try {
-                throw new RuntimeException("错误===777");
+            throw new RuntimeException("错误===777");
 //            } catch (RuntimeException e) {
 ////                Sentry.captureException(e);
 //                logger.error(e.getMessage(),e);
@@ -47,6 +48,22 @@ public class IndexController {
 //            return true;
         }
         return false;
+    }
+
+
+    @Autowired
+    StringEncryptor stringEncryptor;
+
+
+    @Value("${xxx:baidu}")
+    String xxx;
+
+    @ResponseBody
+    @RequestMapping("encrypt")
+    public Object encrypt() {
+        String goooo = stringEncryptor.encrypt("app");
+
+        return goooo + " : " + stringEncryptor.decrypt(goooo) +" : "+xxx;
     }
 
 }
