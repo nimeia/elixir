@@ -26,7 +26,25 @@ spring:
       password: ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
       filter:
         slf4j:
-          enabled: false
+          enabled: true
+        stat :
+          log-slow-sql : true
+          slow-sql-millis : 200
+          enabled : true
+        wall :
+          enabled : true
+          db-type : mysql
+      web-stat-filter :
+        enabled : true
+        exclusions : \*.js,\*.gif,\*.jpg,\*.png,\*.css,\*.ico,/druid/*
+        url-pattern : /*
+      stat-view-servlet :
+        login-username : admin
+        login-password : admin
+        url-pattern : /druid/*
+        enabled : true
+      time-between-log-stats-millis : 300000
+
 
   flyway:
     enabled: false
