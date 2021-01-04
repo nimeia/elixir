@@ -60,6 +60,14 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-hazelcast</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
@@ -89,7 +97,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <flyway.url>jdbc:mysql://10.168.2.142:3306/app?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;serverTimezone=CTT</flyway.url>
+                <flyway.url>jdbc:mysql://127.0.0.1:3306/app?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=CONVERT_TO_NULL&amp;useSSL=false&amp;serverTimezone=CTT</flyway.url>
                 <flyway.user>app</flyway.user>
                 <flyway.password>app</flyway.password>
             </properties>

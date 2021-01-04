@@ -1,5 +1,11 @@
 server:
   port: 8080
+  servlet :
+    session :
+      cookie :
+        http-only : true
+        name : @project.artifactId@-sid
+        path : /
 
 logging:
   level:
@@ -21,7 +27,7 @@ spring:
 #      driver-class-name: com.mysql.cj.jdbc.Driver
 #      url: jdbc:mysql://10.168.2.142:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
       driver-class-name : com.p6spy.engine.spy.P6SpyDriver
-      url: jdbc:p6spy:mysql://10.168.2.142:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+      url: jdbc:p6spy:mysql://127.0.0.1:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
       username: ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
       password: ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
       filter:
@@ -44,16 +50,18 @@ spring:
         url-pattern : /druid/*
         enabled : true
       time-between-log-stats-millis : 300000
-
-
+      test-while-idle : true
+      validation-query : select 1
+      max-active : 100
+      min-idle : 10
   flyway:
     enabled: false
     url: ${spring.datasource.druid.url}
     password: ${spring.datasource.druid.password}
     user: ${spring.datasource.druid.username}
+  session :
+    store-type : hazelcast
+
 jasypt :
   encryptor :
     password : 11112222
-
-xxx: ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
-xxxx: DEC(app)

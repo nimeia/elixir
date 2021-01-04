@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 入口
  *
@@ -28,7 +30,7 @@ public class IndexController {
         return "success";
     }
 
-    @Autowired
+    @Autowired(required = false)
     JdbcTemplate jdbcTemplate;
 
     @RequestMapping("errorTest")
@@ -64,6 +66,15 @@ public class IndexController {
         String goooo = stringEncryptor.encrypt("app");
 
         return goooo + " : " + stringEncryptor.decrypt(goooo) +" : "+xxx;
+    }
+
+    @ResponseBody
+    @RequestMapping("session")
+    public Object session(HttpServletRequest request) {
+
+        request.getSession();
+        return true;
+
     }
 
 }

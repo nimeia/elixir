@@ -19,7 +19,7 @@ public class GlobalConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalConfig.class);
 
-    @Autowired
+    @Autowired(required = false)
     private JdbcTemplate jdbcTemplate;
 
     @PostConstruct
