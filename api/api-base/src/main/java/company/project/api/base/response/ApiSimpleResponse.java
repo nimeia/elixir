@@ -61,6 +61,11 @@ public class ApiSimpleResponse<T extends Serializable> implements Serializable {
         return this;
     }
 
+    public ApiSimpleResponse<T> success(Boolean success) {
+        this.success = success;
+        return this;
+    }
+
     public ApiSimpleResponse<T> requestId(String requestId) {
         this.requestId = requestId;
         return this;
