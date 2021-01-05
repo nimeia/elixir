@@ -6,7 +6,16 @@ server:
         http-only : true
         name : @project.artifactId@-sid
         path : /
-
+  tomcat :
+    accesslog :
+      enabled : true
+      directory : /log
+  jetty :
+    accesslog :
+      enabled : true
+  undertow :
+    accesslog :
+      enabled : true
 logging:
   level:
     p6spy: info
@@ -18,6 +27,10 @@ sentry:
   sentry-client-name: @project.artifactId@
 
 spring:
+  pid:
+    file : @project.artifactId@-${server.port:8080}.pid
+    fail-on-write-error : true
+
   application:
     name: @project.artifactId@
   autoconfigure:
@@ -62,6 +75,8 @@ spring:
   session :
     store-type : hazelcast
 
+
 jasypt :
   encryptor :
     password : 11112222
+

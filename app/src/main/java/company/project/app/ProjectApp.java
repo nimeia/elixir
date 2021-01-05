@@ -1,7 +1,9 @@
 package company.project.app;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.ApplicationPidFileWriter;
+import org.springframework.boot.web.context.WebServerPortFileWriter;
 
 /**
  * 业务应用 app 入口
@@ -12,6 +14,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProjectApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProjectApp.class, args);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder();
+        builder.main(ProjectApp.class)
+                .sources(new Class<?>[]{ProjectApp.class})
+                .listeners(new ApplicationPidFileWriter())
+                .build()
+                .run(args);
     }
 }
