@@ -36,8 +36,6 @@ public class UserDto implements Serializable {
 
     private Date lockTime;
 
-    private Date showLockTime;
-
     private Date shortLockTime;
 
     private Integer loginFailTimes;
