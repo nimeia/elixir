@@ -4,6 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>bom</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>org.example</groupId>
     <artifactId>service</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -12,5 +18,26 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <!--不被外部web层可见，web层需要以runtime方式导入-->
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 
 </project>
