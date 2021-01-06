@@ -34,7 +34,7 @@ spring:
   application:
     name: @project.artifactId@
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
   datasource:
     druid:
 #      driver-class-name: com.mysql.cj.jdbc.Driver
@@ -79,4 +79,14 @@ spring:
 jasypt :
   encryptor :
     password : 11112222
+management :
+  endpoint :
+    httptrace :
+      enabled : true
+    shutdown:
+      enabled : true
+    metrics:
+      enabled : true
+    prometheus:
+      enabled : true
 
