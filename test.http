@@ -6,9 +6,11 @@ GET http://localhost:8080/encrypt
 
 ###
 GET http://localhost:8080/session
+X-Auth-Token: 9f43daf1-212f-4c31-bf4a-fcba9fa72650
 
 ### login
 POST http://localhost:8080/login/process
 Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: a39c7d50-457e-4621-8a99-fac6e94be7fe
 
 username=admin&password=admin
