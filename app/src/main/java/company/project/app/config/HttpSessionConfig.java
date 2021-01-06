@@ -24,7 +24,7 @@ import java.util.List;
  * @author huang
  */
 @Configuration
-public class HazelcastHttpSessionConfig {
+public class HttpSessionConfig {
 
     @Value("${hazelcast.ips:}")
     private String[] hazelcastIps;
