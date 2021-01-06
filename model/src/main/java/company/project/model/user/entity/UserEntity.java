@@ -20,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-@Entity
+@Entity(name = "user")
 public class UserEntity implements Serializable {
 
     @Id
@@ -46,8 +46,6 @@ public class UserEntity implements Serializable {
     private Boolean locked;
 
     private Date lockTime;
-
-    private Date showLockTime;
 
     private Date shortLockTime;
 
