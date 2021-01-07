@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                         , username);
         if (customUserDetails == null || customUserDetails.size() == 0) {
             logger.info("login fails cant find the user :{}", username);
-            return null;
+            throw new UsernameNotFoundException("user not exit!");
         } else {
             if (customUserDetails.size() > 1) {
                 logger.info("more than one user whith the name " + username);

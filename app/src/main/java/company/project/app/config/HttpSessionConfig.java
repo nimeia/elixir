@@ -5,6 +5,7 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.MapSession;
@@ -32,14 +33,18 @@ public class HttpSessionConfig {
     @Value("${spring.application.name}")
     String appName;
 
+    @Autowired
+    ServerProperties serverProperties;
+
     @Bean
     public HazelcastInstance hazelcastInstance() {
         Config config = new Config();
 
         config.setClusterName(appName + "-session");
 
-        config.getNetworkConfig().setPort(0);
+        hazelcastIps = new String[]{"127.0.0.1"};
         if (hazelcastIps == null || hazelcastIps.length == 0) {
+            config.getNetworkConfig().setPort(0);
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(true);
         } else {
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
@@ -49,15 +54,23 @@ public class HttpSessionConfig {
             }
         }
 
+
+
+//        Long sessionMaxAge =  serverProperties.getServlet().getSession().getCookie().getMaxAge().getSeconds();
         AttributeConfig attributeConfig = new AttributeConfig()
                 .setName(Hazelcast4IndexedSessionRepository.PRINCIPAL_NAME_ATTRIBUTE)
                 .setExtractorClassName(Hazelcast4PrincipalNameExtractor.class.getName());
         config.getMapConfig(Hazelcast4IndexedSessionRepository.DEFAULT_SESSION_MAP_NAME)
+                .setMaxIdleSeconds(3600)
+                .setBackupCount(2)
+                .setReadBackupData(true)
+                //.setAsyncBackupCount(1)
                 .addAttributeConfig(attributeConfig).addIndexConfig(
                 new IndexConfig(IndexType.HASH, Hazelcast4IndexedSessionRepository.PRINCIPAL_NAME_ATTRIBUTE));
         SerializerConfig serializerConfig = new SerializerConfig();
         serializerConfig.setImplementation(new HazelcastSessionSerializer()).setTypeClass(MapSession.class);
         config.getSerializationConfig().addSerializerConfig(serializerConfig);
+
 
         return Hazelcast.newHazelcastInstance(config);
     }
