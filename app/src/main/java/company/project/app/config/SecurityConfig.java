@@ -1,7 +1,6 @@
 package company.project.app.config;
 
 import company.project.app.config.springsecurity.*;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.woff",
                         "/**/*.ttf",
                         "/druid/**",
+                        "/_api/**",
                         "/actuator/**",
                         "/h2-console/**");
     }

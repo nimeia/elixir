@@ -5,6 +5,7 @@ import company.project.model.user.repos.UserRepos;
 import company.project.service.user.dto.UserDto;
 import company.project.service.user.mapper.UserDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ public class UserService {
      * @param username
      * @return
      */
+    @Cacheable("userDto")
     public UserDto findUser(String username) {
         UserEntity userEntity = userRepos.findByUsername(username);
         UserDto userDto = UserDtoMapper.mapper.toUserDto(userEntity);
