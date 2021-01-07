@@ -34,7 +34,7 @@ spring:
   application:
     name: @project.artifactId@
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
   datasource:
     druid:
 #      driver-class-name: com.mysql.cj.jdbc.Driver
@@ -74,7 +74,6 @@ spring:
     user: ${spring.datasource.druid.username}
   session :
     store-type : hazelcast
-
 
 jasypt :
   encryptor :
