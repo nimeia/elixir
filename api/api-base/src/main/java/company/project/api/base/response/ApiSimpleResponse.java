@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @param <T>
  * @author huang
  */
-public class ApiSimpleResponse<T extends Serializable> implements Serializable {
+public class ApiSimpleResponse<T> implements Serializable {
 
     public static final String RESPONSE_CODE_SUCCESS = "2000";
     public static final String RESPONSE_CODE_ERROR = "5000";

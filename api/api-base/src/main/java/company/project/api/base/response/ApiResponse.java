@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @param <T extends Serializable>
  * @author huang
  */
-public class ApiResponse<T extends Serializable> extends ApiSimpleResponse<T> implements Serializable {
+public class ApiResponse<T> extends ApiSimpleResponse<T> implements Serializable {
 
     /**
      * 分页信息
