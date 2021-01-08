@@ -1,16 +1,37 @@
-###
-GET http://localhost:8080/errorTest
-
-###
-GET http://localhost:8080/encrypt
-
-###
-GET http://localhost:8080/session
-X-Auth-Token: 9f43daf1-212f-4c31-bf4a-fcba9fa72650
-
 ### login
 POST http://localhost:8080/login/process
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: a39c7d50-457e-4621-8a99-fac6e94be7fe
 
 username=admin&password=admin
+
+### useradd
+POST http://localhost:8080/user/addUser
+Content-Type: application/json
+X-Auth-Token: e1ac439a-54c2-4795-8e81-00ef748f6aac
+
+{
+    "username": "admin5",
+    "phone": "13800013800",
+    "email": "admin3@admin.com",
+    "displayName": "admin 3",
+    "enabled": true
+}
+
+### userinfo
+POST http://localhost:8080/user
+Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: e1ac439a-54c2-4795-8e81-00ef748f6aac
+
+username=admin5
+
+### userinfo by open api
+POST http://localhost:8080/_api/user/
+Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267
+
+username=admin
+
+### userinfo by open api
+GET http://localhost:8080/_api/_status
+Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267

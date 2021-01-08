@@ -3,6 +3,7 @@ package company.project.app.config.mvc;
 
 import cn.hutool.core.util.IdUtil;
 import company.project.api.base.response.ApiSimpleResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class, HttpMessageNotReadableException.class})
@@ -26,9 +27,9 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ApiSimpleResponse handleBindGetException(Exception e) {
+        log.error(e.getMessage(),e);
         Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("timestamp", new Date());
-
         // 获取所有异常
         if (e instanceof MethodArgumentNotValidException) {
             MethodArgumentNotValidException ee = (MethodArgumentNotValidException) e;
@@ -57,6 +58,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ApiSimpleResponse commonException(Exception e) {
+        log.error(e.getMessage(),e);
         Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("timestamp", new Date());
         body.put("error", e.getMessage());

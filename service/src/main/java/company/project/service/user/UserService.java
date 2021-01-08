@@ -48,9 +48,9 @@ public class UserService {
      * @param userDto
      * @return
      */
-    @Transactional
+    @Transactional(readOnly = false)
     public UserDto insertUser(UserDto userDto){
-        UserEntity userEntity = UserDtoMapper.mapper.toUserEntity(userDto);
+        UserEntity userEntity = UserDtoMapper.mapper.initUserEntity(userDto);
         userRepos.save(userEntity);
         return UserDtoMapper.mapper.toUserDto(userEntity);
     }

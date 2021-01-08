@@ -8,3 +8,8 @@ create table user
     constraint user_pk
         primary key (id)
 ) character set 'utf8mb4' comment '用户表';
+
+create unique index user_username_uindex
+    on user (username);
+
+

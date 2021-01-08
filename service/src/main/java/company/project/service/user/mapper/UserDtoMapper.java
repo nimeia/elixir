@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 @Mapper
 public interface UserDtoMapper {
@@ -14,9 +15,17 @@ public interface UserDtoMapper {
 
     UserDto toUserDto(UserEntity userEntity);
 
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
     UserEntity toUserEntity(UserDto userDto);
+
+    /**
+     * 新建对象
+     * @param userDto
+     * @return
+     */
+    UserEntity initUserEntity(UserDto userDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
