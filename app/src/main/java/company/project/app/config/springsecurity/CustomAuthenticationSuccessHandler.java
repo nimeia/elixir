@@ -1,5 +1,7 @@
 package company.project.app.config.springsecurity;
 
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.IdUtil;
 import company.project.api.base.response.ApiSimpleResponse;
 import company.project.core.utils.web.ResponseUtils;
 import org.slf4j.Logger;
@@ -36,10 +38,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         ApiSimpleResponse tokenResponse = new ApiSimpleResponse<>()
                 .businessMessage("登录成功")
                 .code("200")
-                .requestId(String.valueOf(System.currentTimeMillis()))
+                .requestId(IdUtil.objectId())
                 .system("app")
                 .success(true)
-                .data(request.getSession().getId())
+                .data(MapUtil.builder().put("X-Auth-Token",request.getSession().getId()).build())
                 .message("login success");
 
         ResponseUtils.jsonResponse(response, tokenResponse);

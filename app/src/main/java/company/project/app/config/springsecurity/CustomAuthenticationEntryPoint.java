@@ -1,5 +1,6 @@
 package company.project.app.config.springsecurity;
 
+import cn.hutool.core.util.IdUtil;
 import company.project.api.base.response.ApiSimpleResponse;
 import company.project.core.utils.json.JsonUtils;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             response.setContentType("application/json");
 
             ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse()
-                    .requestId(String.valueOf(System.currentTimeMillis()))
+                    .requestId(IdUtil.objectId())
                     .code("500")
                     .system("app")
                     .data("")

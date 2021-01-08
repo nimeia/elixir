@@ -1,5 +1,6 @@
 package company.project.app.config.springsecurity;
 
+import cn.hutool.core.util.IdUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import company.project.api.base.response.ApiSimpleResponse;
 import company.project.core.utils.json.JsonUtils;
@@ -33,7 +34,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType("application/json");
 
         ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse()
-                .requestId(String.valueOf(System.currentTimeMillis()))
+                .requestId(IdUtil.objectId())
                 .code("500")
                 .system("app")
                 .data("")

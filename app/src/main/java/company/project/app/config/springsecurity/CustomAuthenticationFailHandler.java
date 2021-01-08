@@ -1,5 +1,6 @@
 package company.project.app.config.springsecurity;
 
+import cn.hutool.core.util.IdUtil;
 import company.project.api.base.response.ApiSimpleResponse;
 import company.project.core.utils.web.ResponseUtils;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class CustomAuthenticationFailHandler extends SimpleUrlAuthenticationFail
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse().code("500").success(false).system("app").message("not allow!").data(e.getMessage());
+        ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse().requestId(IdUtil.objectId()).code("500").success(false).system("app").message("not allow!").data(e.getMessage());
         String username = request.getParameter("username");
 
         logger.error("user " + username + " login failure ", e);
