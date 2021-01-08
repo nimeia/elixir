@@ -434,6 +434,7 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <executable>true</executable>
                         <mainClass>${start-class}</mainClass>
                     </configuration>
                 </plugin>
