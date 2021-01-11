@@ -1,13 +1,21 @@
+GET http://localhost:8080/login/validateCode
+
 ### login
 POST http://localhost:8080/login/process
 Content-Type: application/x-www-form-urlencoded
 
-username=admin&password=admin
+username=admin5&password=admin&validateCode=111
+
+### permission test
+GET http://localhost:8080/admin/
+Content-Type: application/json
+X-Auth-Token: 681bee19-0199-4399-bacf-2a7c2c99ee59
+
 
 ### useradd
 POST http://localhost:8080/user/addUser
 Content-Type: application/json
-X-Auth-Token: e1ac439a-54c2-4795-8e81-00ef748f6aac
+X-Auth-Token: 01877fb8-9d12-47a4-88fc-105b658f6bbf
 
 {
     "username": "admin5",
@@ -17,12 +25,24 @@ X-Auth-Token: e1ac439a-54c2-4795-8e81-00ef748f6aac
     "enabled": true
 }
 
+
+### updatepassword
+POST http://localhost:8080/user/updatePassword
+Content-Type: application/json
+X-Auth-Token: 268aa250-d2dd-4f40-ae94-8beed84eebaf
+
+{
+    "validCode": "admin5",
+    "username": "admin5",
+    "oldPassword": "13800013800",
+    "password": "admin3@admin.com"
+}
+
 ### userinfo
 POST http://localhost:8080/user
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: e1ac439a-54c2-4795-8e81-00ef748f6aac
+X-Auth-Token: 6143dd1d-50a8-4bc8-9233-b88fe793c525
 
-username=admin5
 
 ### userinfo by open api
 POST http://localhost:8080/_api/user/
@@ -30,6 +50,8 @@ Content-Type: application/x-www-form-urlencoded
 X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267
 
 username=admin
+
+
 
 ### userinfo by open api
 GET http://localhost:8080/_api/_status
