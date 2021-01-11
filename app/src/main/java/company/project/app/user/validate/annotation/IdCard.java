@@ -1,4 +1,4 @@
-package company.project.app.config.validate.annotation;
+package company.project.app.user.validate.annotation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

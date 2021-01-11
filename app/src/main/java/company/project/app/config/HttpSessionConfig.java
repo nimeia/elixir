@@ -3,6 +3,7 @@ package company.project.app.config;
 import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import company.project.app.config.springsecurity.CustomSecurityMetadataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -12,14 +13,8 @@ import org.springframework.session.MapSession;
 import org.springframework.session.hazelcast.Hazelcast4IndexedSessionRepository;
 import org.springframework.session.hazelcast.Hazelcast4PrincipalNameExtractor;
 import org.springframework.session.hazelcast.HazelcastSessionSerializer;
-import org.springframework.session.web.http.CookieHttpSessionIdResolver;
-import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
 import org.springframework.session.web.http.HttpSessionIdResolver;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * @author huang
@@ -54,8 +49,6 @@ public class HttpSessionConfig {
             }
         }
 
-
-
 //        Long sessionMaxAge =  serverProperties.getServlet().getSession().getCookie().getMaxAge().getSeconds();
         AttributeConfig attributeConfig = new AttributeConfig()
                 .setName(Hazelcast4IndexedSessionRepository.PRINCIPAL_NAME_ATTRIBUTE)
@@ -71,6 +64,9 @@ public class HttpSessionConfig {
         serializerConfig.setImplementation(new HazelcastSessionSerializer()).setTypeClass(MapSession.class);
         config.getSerializationConfig().addSerializerConfig(serializerConfig);
 
+        ReplicatedMapConfig replicatedMapConfig = config.getReplicatedMapConfig(CustomSecurityMetadataSource.SECURITY_METADATA_SOURCE_MAP);
+        replicatedMapConfig.setInMemoryFormat(InMemoryFormat.OBJECT);
+        replicatedMapConfig.setStatisticsEnabled(true);
 
         return Hazelcast.newHazelcastInstance(config);
     }

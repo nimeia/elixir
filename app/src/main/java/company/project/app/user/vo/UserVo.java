@@ -1,7 +1,7 @@
 package company.project.app.user.vo;
 
-import company.project.app.config.validate.annotation.IdCard;
-import company.project.app.config.validate.usergroup.*;
+import company.project.app.user.validate.annotation.IdCard;
+import company.project.app.user.validate.usergroup.*;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 

@@ -1,10 +1,9 @@
-package company.project.app.config.validate.annotation;
+package company.project.app.user.validate.annotation;
 
 import cn.hutool.core.util.IdcardUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Locale;
 
 public class IdCardValidater implements ConstraintValidator<IdCard, String> {
 

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
@@ -44,6 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomValidateCodeFilter customValidateCodeFilter;
+
+    @Autowired
+    CustomAccessDecisionManager customAccessDecisionManager;
+
+    @Autowired
+    CustomSecurityInterceptor customSecurityInterceptor;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -86,7 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(customValidateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(customValidateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(customSecurityInterceptor,FilterSecurityInterceptor.class)
 
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
@@ -108,9 +116,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(customAuthenticationSuccessHandler)
 
                 // create no session
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                //.and()
+                //.sessionManagement()
+                //.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .authorizeRequests()

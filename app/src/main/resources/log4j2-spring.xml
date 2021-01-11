@@ -44,6 +44,7 @@
         <Logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
 
         <Logger name="p6spy" level="debug"/>
+        <Logger name="org.springframework.security" level="debug"/>
         <!--记录druid-sql的记录-->
         <logger name="druid.sql.Statement" level="error" additivity="false">
             <!--<appender-ref ref="Console"/>-->
