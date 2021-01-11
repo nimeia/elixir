@@ -27,7 +27,6 @@ sentry :
   dsn : http://c6715a73355a45ec948d9e0e668c0233@10.168.2.142:9000/2
   sentry-client-name : @project.artifactId@
 spring :
-
   pid :
     file : @project.artifactId@-${server.port:8080}.pid
     fail-on-write-error : true
@@ -79,6 +78,8 @@ spring :
     jcache :
       provider : com.hazelcast.cache.HazelcastCachingProvider
     type : hazelcast
+  messages :
+    basename : messages/message
 #    cache-names :
 
 jasypt :
