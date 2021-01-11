@@ -168,6 +168,10 @@
             <groupId>io.sentry</groupId>
             <artifactId>sentry-log4j2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
