@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ApiSimpleResponse handleBindGetException(Exception e) {
-        log.error(e.getMessage(),e);
+        log.error(e.getMessage(), e);
         Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("timestamp", new Date());
         // 获取所有异常
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ApiSimpleResponse commonException(Exception e) {
-        log.error(e.getMessage(),e);
+        log.error(e.getMessage(), e);
         Map<String, Object> body = new LinkedHashMap<String, Object>();
         body.put("timestamp", new Date());
         body.put("error", e.getMessage());

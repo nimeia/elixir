@@ -15,6 +15,6 @@ public interface UserVoMapper {
 
     UserVo toUserVo(UserDto userDto);
 
-    void mergeToUserDto(UserVo userVo,@MappingTarget UserDto userDto);
+    void mergeToUserDto(UserVo userVo, @MappingTarget UserDto userDto);
 
 }

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -41,7 +40,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
                 .requestId(IdUtil.objectId())
                 .system("app")
                 .success(true)
-                .data(MapUtil.builder().put("X-Auth-Token",request.getSession().getId()).build())
+                .data(MapUtil.builder().put("X-Auth-Token", request.getSession().getId()).build())
                 .message("login success");
 
         ResponseUtils.jsonResponse(response, tokenResponse);

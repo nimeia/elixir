@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateTests {
 
     @Test
-    public void getTest(@Autowired RestTemplate template){
+    public void getTest(@Autowired RestTemplate template) {
         ResponseEntity<String> forEntity = template.getForEntity("https://www.baidu.com", String.class);
         System.out.println(forEntity.getBody());
         Assert.notNull(forEntity.getBody());

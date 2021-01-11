@@ -2,8 +2,8 @@ package company.project.app.user.web;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
-import company.project.app.user.validate.usergroup.UserInsert;
 import company.project.app.user.mapper.UserVoMapper;
+import company.project.app.user.validate.usergroup.UserInsert;
 import company.project.app.user.vo.UpdatePasswordVo;
 import company.project.app.user.vo.UserVo;
 import company.project.service.user.UserService;
@@ -38,6 +38,7 @@ public class UserController {
 
     /**
      * query user
+     *
      * @param username
      * @return
      */
@@ -49,16 +50,17 @@ public class UserController {
 
     /**
      * insert new user
+     *
      * @param userVo
      * @return
      */
     @RequestMapping("addUser")
     public UserVo addUser(@Validated(value = {UserInsert.class, Default.class}) @RequestBody UserVo userVo) {
-        UserDto userDtoNew= UserVoMapper.mapper.toUserDto(userVo);
+        UserDto userDtoNew = UserVoMapper.mapper.toUserDto(userVo);
         //set the init data that will not input by the api
         userDtoNew.setCreateBy("web sys");
         userDtoNew.setLoginFailTimes(0);
-        userDtoNew.setValidTime(DateUtil.offset(new Date(), DateField.YEAR,1));
+        userDtoNew.setValidTime(DateUtil.offset(new Date(), DateField.YEAR, 1));
         userDtoNew.setCreateTime(new Date());
         userDtoNew.setLocked(false);
         //set the init password
@@ -70,16 +72,19 @@ public class UserController {
 
     @Autowired
     MessageSource messageSource;
+
     /**
      * update password
+     *
      * @param passwordVo
      * @return
      */
     @RequestMapping("updatePassword")
-    public Object updatePassword(@RequestBody @Valid UpdatePasswordVo passwordVo){
+    public Object updatePassword(@RequestBody @Valid UpdatePasswordVo passwordVo) {
 
         //you can use messageSource to get local message
-        String message = messageSource.getMessage("update.password.username",new String[]{},"xxxxx", Locale.CHINESE);;
+        String message = messageSource.getMessage("update.password.username", new String[]{}, "xxxxx", Locale.CHINESE);
+        ;
 
         return message;
     }

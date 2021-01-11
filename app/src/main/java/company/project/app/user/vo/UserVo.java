@@ -39,7 +39,7 @@ public class UserVo implements Serializable {
 
     @NotBlank(groups = {UserPhoneUpdate.class}, message = "用户电话不能为空")
     @Null(groups = {UserUpdate.class}, message = "用户电话不能变更")
-    @Pattern(regexp = "\\d{11}",message = "电话号格式不正常")
+    @Pattern(regexp = "\\d{11}", message = "电话号格式不正常")
     private String phone;
 
     @Email

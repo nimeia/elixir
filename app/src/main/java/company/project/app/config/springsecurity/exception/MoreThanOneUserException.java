@@ -6,7 +6,6 @@ import org.springframework.security.authentication.InternalAuthenticationService
  * 查出多于一个正常用户时抛出
  *
  * @author huang
- *
  */
 public class MoreThanOneUserException extends InternalAuthenticationServiceException {
 

@@ -72,7 +72,7 @@ public class HttpSessionConfig {
     }
 
     @Bean
-    HttpSessionIdResolver httpSessionIdResolver(){
+    HttpSessionIdResolver httpSessionIdResolver() {
         return HeaderHttpSessionIdResolver.xAuthToken();
     }
 

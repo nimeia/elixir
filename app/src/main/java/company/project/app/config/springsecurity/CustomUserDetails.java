@@ -2,14 +2,10 @@ package company.project.app.config.springsecurity;
 
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.swing.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * the spring security user details info with custom data
@@ -48,6 +44,8 @@ public class CustomUserDetails implements UserDetails, CredentialsContainer {
 
     private Date validTime;
 
+    private String permission;
+
     private Set<GrantedAuthority> authorities;
 
     public CustomUserDetails() {
@@ -55,13 +53,24 @@ public class CustomUserDetails implements UserDetails, CredentialsContainer {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
+        if (authorities == null || authorities.size() == 0) {
+            Collection<GrantedAuthority> list = new ArrayList<>();
+            if (permission != null) {
+                for (String perm : permission.split(",")) {
+                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(perm);
+                    list.add(grantedAuthority);
+                }
+            }
+            authorities = new LinkedHashSet<>();
+            authorities.addAll(list);
+        }
         return this.authorities;
     }
 
     @Override
     public boolean isEnabled() {
         return this.enabled && isAccountNonExpired() && isAccountNonLocked()
-                && (shortLockTime==null || new Date(shortLockTime.getTime() + 24* 3600 *1000).before(new Date()));
+                && (shortLockTime == null || new Date(shortLockTime.getTime() + 24 * 3600 * 1000).before(new Date()));
     }
 
     @Override
@@ -119,6 +128,14 @@ public class CustomUserDetails implements UserDetails, CredentialsContainer {
                 ", authorities=" + authorities +
                 ", enable=" + isEnabled() +
                 '}';
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public void setUsername(String username) {

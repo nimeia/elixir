@@ -1,6 +1,5 @@
 package company.project.test;
 
-import company.project.app.config.springsecurity.CustomUserDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

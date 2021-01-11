@@ -1,10 +1,8 @@
 package company.project.app.config.springsecurity;
 
 import cn.hutool.core.util.IdUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import company.project.api.base.response.ApiSimpleResponse;
 import company.project.core.utils.json.JsonUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -40,8 +38,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                 .data("")
                 .success(false)
                 .message(accessDeniedException.getMessage())
-                .businessMessage("not allow!")
-                ;
+                .businessMessage("not allow!");
 
         response.getWriter().write(JsonUtils.toJson(apiSimpleResponse));
     }

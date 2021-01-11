@@ -17,7 +17,7 @@ public class UserMessageLister {
 
     @RabbitListener(queues = "syncUser")
     public void processMessage(String content) {
-        log.info("syncUser message:{}",content);
+        log.info("syncUser message:{}", content);
         UserVo userVo = JsonUtils.toObject(content, UserVo.class);
 
         //doing something
