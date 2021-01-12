@@ -22,16 +22,17 @@
     <dependencies>
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>bom-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>model</artifactId>
             <version>1.0-SNAPSHOT</version>
             <!--不被外部web层可见，web层需要以runtime方式导入-->
             <optional>true</optional>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
         </dependency>
 
         <dependency>
@@ -40,12 +41,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
 </project>
