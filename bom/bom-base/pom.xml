@@ -85,6 +85,10 @@
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
         <!--消息中间件-->
         <dependency>
@@ -118,12 +122,6 @@
         <dependency>
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-job-core</artifactId>
-        </dependency>
-
-        <!--对象存储-->
-        <dependency>
-            <groupId>com.jlefebure</groupId>
-            <artifactId>spring-boot-starter-minio</artifactId>
         </dependency>
 
         <!--常用工具-->
