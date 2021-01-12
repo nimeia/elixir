@@ -27,10 +27,7 @@
             <!--不被外部web层可见，web层需要以runtime方式导入-->
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
+
 
         <dependency>
             <groupId>org.mapstruct</groupId>
