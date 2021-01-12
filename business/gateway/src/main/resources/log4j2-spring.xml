@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="org.apache.logging.log4j.core,io.sentry.log4j2">
+    <Properties>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
+        <Property name="CONSOLE_LOG_PATTERN">%clr{%d{${sys:LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{${hostName}}{blue} %clr{@project.artifactId@}{cyan} %clr{%pid}{magenta} %clr{%traceId}{yellow} %clr{---}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}
+        </Property>
+        <Property name="FILE_LOG_PATTERN">%d{${sys:LOG_DATEFORMAT_PATTERN}} ${sys:LOG_LEVEL_PATTERN} ${hostName} @project.artifactId@ %pid %traceId --- [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
+        </Console>
+        <Sentry name="Sentry"/>
+        <RollingFile name="File" fileName="${sys:LOG_PATH}/${sys:LOG_FILE}.log"
+                     filePattern="${sys:LOG_PATH}/$${date:yyyy-MM}/${sys:LOG_FILE}-%d{yyyy-MM-dd-HH}-%i.log.gz">
+            <PatternLayout pattern="${sys:FILE_LOG_PATTERN}" charset="${sys:FILE_LOG_CHARSET}"/>
+            <!--自动滚动规则-->
+            <Policies>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <!--自动删除规则-->
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:LOG_PATH}" maxDepth="2">
+                    <IfFileName glob="*/${sys:LOG_FILE}-*.log.gz"/>
+                    <IfLastModified age="60d"/>
+                </Delete>
+                <Delete basePath="${sys:LOG_PATH}" maxDepth="2">
+                    <IfFileName glob="*/${sys:LOG_FILE}-*.log.gz"/>
+                    <IfAccumulatedFileSize exceeds="10 GB"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache.catalina.startup.DigesterFactory" level="error"/>
+        <Logger name="org.apache.catalina.util.LifecycleBase" level="error"/>
+        <Logger name="org.apache.coyote.http11.Http11NioProtocol" level="warn"/>
+        <Logger name="org.apache.sshd.common.util.SecurityUtils" level="warn"/>
+        <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn"/>
+        <Logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="error"/>
+        <Logger name="org.hibernate.validator.internal.util.Version" level="warn"/>
+        <Logger name="org.springframework.boot.actuate.endpoint.jmx" level="warn"/>
+
+        <Logger name="p6spy" level="debug"/>
+        <Logger name="org.springframework.security" level="debug"/>
+        <!--记录druid-sql的记录-->
+        <logger name="druid.sql.Statement" level="error" additivity="false">
+            <!--<appender-ref ref="Console"/>-->
+        </logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+            <AppenderRef ref="Sentry"/>
+        </Root>
+    </Loggers>
+</Configuration>
