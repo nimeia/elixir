@@ -1,7 +1,10 @@
 package company.project.core.config;
 
+import company.project.core.config.properties.SecurityProperties;
 import company.project.core.config.springsecurity.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +25,12 @@ import org.springframework.web.filter.CorsFilter;
  */
 
 @Configuration
+@Slf4j
+@ConditionalOnProperty(prefix = "core.security", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @Autowired
     CorsFilter corsFilter;
@@ -61,25 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //add security ignore file
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/*.html",
-                        "/favicon.ico",
-                        "/**/*.htm",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.jpg",
-                        "/**/*.webp",
-                        "/**/*.mp4",
-                        "/**/*.eot",
-                        "/**/*.woff2",
-                        "/**/*.woff",
-                        "/**/*.ttf",
-                        "/druid/**",
-                        "/_api/**",
-                        "/actuator/**",
-                        "/h2-console/**");
+                .antMatchers(securityProperties.getIgnoreUrl());
     }
 
     @Override
@@ -92,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-//                .addFilterBefore(customValidateCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(customValidateCodeFilter,UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(customSecurityInterceptor, FilterSecurityInterceptor.class)
 
                 .exceptionHandling()
@@ -107,10 +97,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login/process")
-                .failureForwardUrl("/login/error")
-                .defaultSuccessUrl("/login/success")
+                .loginPage(securityProperties.getLoginPage())
+                .loginProcessingUrl(securityProperties.getLoginProcessUrl())
+                .failureForwardUrl(securityProperties.getFailureForwardUrl())
+                .defaultSuccessUrl(securityProperties.getDefaultSuccessUrl())
                 .failureHandler(customAuthenticationFailHandler)
                 .successHandler(customAuthenticationSuccessHandler)
 
@@ -121,10 +111,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/login/process").permitAll()
-                .antMatchers("/login/error").permitAll()
+                .antMatchers(securityProperties.getLoginPage()).permitAll()
+                .antMatchers(securityProperties.getLoginProcessUrl()).permitAll()
+                .antMatchers(securityProperties.getFailureForwardUrl()).permitAll()
+                .antMatchers(securityProperties.getValidCodeImgUrl()).permitAll()
+                .antMatchers(securityProperties.getDefaultSuccessUrl()).permitAll()
                 .anyRequest().authenticated();
 
 

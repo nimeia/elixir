@@ -3,9 +3,11 @@ package company.project.core.config;
 import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import company.project.core.config.properties.HazelcastProperties;
 import company.project.core.config.springsecurity.CustomSecurityMetadataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,24 +22,27 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
  * @author huang
  */
 @Configuration
+@Slf4j
+@ConditionalOnProperty(prefix = "core.hazelcast", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class HttpSessionConfig {
 
-    @Value("${hazelcast.ips:}")
-    private String[] hazelcastIps;
+    public HttpSessionConfig(){
+        log.info("...HttpSessionConfig...");
+    }
 
-    @Value("${spring.application.name}")
-    String appName;
+    @Autowired
+    HazelcastProperties hazelcastProperties;
 
     @Autowired
     ServerProperties serverProperties;
 
     @Bean
     public HazelcastInstance hazelcastInstance() {
+        String[] hazelcastIps = hazelcastProperties.getHazelcastIps();
+        String appName = hazelcastProperties.getAppName();
         Config config = new Config();
 
         config.setClusterName(appName + "-session");
-
-        hazelcastIps = new String[]{"127.0.0.1"};
         if (hazelcastIps == null || hazelcastIps.length == 0) {
             config.getNetworkConfig().setPort(0);
             config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(true);

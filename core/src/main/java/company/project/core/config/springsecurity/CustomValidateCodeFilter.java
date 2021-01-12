@@ -5,9 +5,10 @@ import com.hazelcast.internal.util.StringUtil;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import company.project.api.base.response.ApiSimpleResponse;
+import company.project.core.config.properties.SecurityProperties;
 import company.project.core.utils.web.ResponseUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,24 +22,26 @@ import java.io.IOException;
 @Slf4j
 public class CustomValidateCodeFilter extends OncePerRequestFilter {
 
-    @Value("${validCodeImgUrl:/login/validateCode}")
-    private String validCodeImgUrl;
-
-    @Value("${loginUrl:/login/process}")
-    private String loginUrl;
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        if (!securityProperties.getValidCodeEnabled()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String requestUrl = request.getRequestURI();
-        if (StringUtil.equalsIgnoreCase(requestUrl, validCodeImgUrl)) {
+        if (StringUtil.equalsIgnoreCase(requestUrl, securityProperties.getValidCodeImgUrl())) {
             // 使用gif验证码
             GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 4);
             CaptchaUtil.out(gifCaptcha, request, response);
 
             return;
         } else {
-            if (StringUtil.equalsIgnoreCase(requestUrl, loginUrl)) {
+            if (StringUtil.equalsIgnoreCase(requestUrl, securityProperties.getLoginProcessUrl())) {
                 String validateCode = request.getParameter("validateCode");
                 if (!CaptchaUtil.ver(validateCode, request)) {
                     CaptchaUtil.clear(request);  // 清除session中的验证码

@@ -1,11 +1,13 @@
 package company.project.core.config;
 
+import company.project.core.config.properties.RestTemplateProperties;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,15 @@ import java.io.IOException;
 
 @Configuration
 @Slf4j
+@ConditionalOnProperty(prefix = "core.rest", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class RestTemplateConfig {
+
+    public RestTemplateConfig() {
+        log.info("start RestTemplateConfig ...");
+    }
+
+    @Autowired
+    RestTemplateProperties restTemplateProperties;
 
     @Bean
     RestTemplateCustomizer restTemplateCustomizer() {
@@ -28,7 +38,7 @@ public class RestTemplateConfig {
 
                 HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-                OkHttpClient client = new OkHttpClient.Builder()
+                OkHttpClient.Builder builder = new OkHttpClient.Builder()
 //                        .addInterceptor(loggingInterceptor)
                         .addInterceptor(new Interceptor() {
                             @Override
@@ -40,8 +50,11 @@ public class RestTemplateConfig {
                                     log.info("call api: {} ,use {} ms", chain.request().url().toString(), (System.currentTimeMillis() - start));
                                 }
                             }
-                        })
-                        .build();
+                        });
+                if (restTemplateProperties.getLogContext()) {
+                    builder.addInterceptor(loggingInterceptor);
+                }
+                OkHttpClient client = builder.build();
 
                 OkHttp3ClientHttpRequestFactory okHttp3ClientHttpRequestFactory = new OkHttp3ClientHttpRequestFactory(client);
 

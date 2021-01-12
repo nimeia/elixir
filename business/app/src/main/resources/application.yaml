@@ -98,3 +98,10 @@ management :
 
 # 图片校验码
 validCodeImgUrl : /login/validateCode
+
+core :
+  hazelcast :
+    appName : @project.artifactId@
+    hazelcastIps :
+      - 127.0.0.1
+      - 127.0.0.1
