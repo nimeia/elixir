@@ -17,12 +17,7 @@
         <module>bom-base</module>
         <module>bom-api</module>
         <module>bom-restful</module>
-        <module>bom-dubbo</module>
         <module>bom-monitor</module>
-        <module>bom-mybatis</module>
-        <module>bom-jpa</module>
-        <module>bom-jobs</module>
-        <module>bom-mq</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -144,7 +139,7 @@
             <dependency>
                 <groupId>com.googlecode.log4jdbc</groupId>
                 <artifactId>log4jdbc</artifactId>
-                <version>1.2</version>
+                <version>${version.log4jdbc}</version>
             </dependency>
 
             <!-- spring-boot-admin -->
@@ -284,7 +279,6 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${version.lombok}</version>
-                <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>com.xuxueli</groupId>
