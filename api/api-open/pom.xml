@@ -14,6 +14,236 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <yapi.token>b4224361f31361a696a65a11bfd3bc2da17b9d81dd51940e8ef9dd0daac8f666</yapi.token>
+        <yapi.merge>merge</yapi.merge>
+        <yapi.url>http://localhost:3000/api/open/import_data</yapi.url>
+        <yapi.json>generated/doc/openApi3.0.json</yapi.json>
     </properties>
 
+    <build>
+        <plugins>
+            <!--打包源码发布-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--文档生成插件-->
+            <plugin>
+                <groupId>com.github.shalousun</groupId>
+                <artifactId>smart-doc-maven-plugin</artifactId>
+                <version>1.2.4</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.shalousun</groupId>
+                        <artifactId>smart-doc</artifactId>
+                        <version>1.9.9.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configFile>smart-doc.json</configFile>
+                    <projectName>购物开放API</projectName>
+                    <excludes>
+                        <!--设置排除项-->
+                        <!--<exclude>com.alibaba:fastjson</exclude>-->
+                    </excludes>
+                    <includes>
+                        <!--格式为：groupId:artifactId;参考如下-->
+                        <!--<include>org.example:order_api</include>-->
+                        <!--<include>org.example:api</include>-->
+                        <include>test.code:baseapi</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
+                        <!--<phase>package</phase>-->
+                        <goals>
+                            <goal>html</goal>
+                            <goal>openapi</goal>
+                            <goal>markdown</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--swagger 文档生成插件-->
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>3.1.4</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc>
+                            <locations>
+                                <location>com.mytest</location>
+                                <!--<location>com.test</location>-->
+                            </locations>
+                            <schemes>
+                                <scheme>http</scheme>
+                                <scheme>https</scheme>
+                            </schemes>
+                            <host>www.example.com:8080</host>
+                            <basePath>/</basePath>
+                            <info>
+                                <title>Swagger Maven Plugin Sample</title>
+                                <version>v2</version>
+                                <!-- use markdown here because I'm using markdown for output,
+                                if you need to use html or other markup language, you need to use your target language,
+                                 and note escape your description for xml -->
+                                <description>
+                                    This is a sample.
+                                </description>
+                                <termsOfService>
+                                    http://www.github.com/kongchen/swagger-maven-plugin
+                                </termsOfService>
+                                <contact>
+                                    <email>kongchen@gmail.com</email>
+                                    <name>Kong Chen</name>
+                                    <url>http://kongch.com</url>
+                                </contact>
+                                <license>
+                                    <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+                                    <name>Apache 2.0</name>
+                                </license>
+                            </info>
+                            <outputFormats>json,yaml</outputFormats>
+
+                            <!-- <securityDefinitions>
+                                 <securityDefinition>
+                                     <name>basicAuth</name>
+                                     <type>basic</type>
+                                 </securityDefinition>
+                                 <securityDefinition>
+                                     <json>${basedir}/securityDefinition.json</json>
+                                 </securityDefinition>
+                             </securityDefinitions>-->
+
+                            <!--<responseMessageOverrides>
+                                <responseMessageOverride>
+                                    <code>401</code>
+                                    <message>Unauthenticated - could not authenticate the user.</message>
+                                </responseMessageOverride>
+                                <responseMessageOverride>
+                                    <code>403</code>
+                                    <message>Forbidden - the user does not have the required permissions to execute this request.</message>
+                                </responseMessageOverride>
+                            </responseMessageOverrides>-->
+
+                            <!-- Support classpath or file absolute path here.
+                            1) classpath e.g: "classpath:/markdown.hbs", "classpath:/templates/hello.html"
+                            2) file e.g: "${basedir}/src/main/resources/markdown.hbs",
+                                "${basedir}/src/main/resources/template/hello.html" -->
+
+                            <templatePath>${basedir}/templates/strapdown.html.hbs</templatePath>
+
+                            <outputPath>${basedir}/generated/document.html</outputPath>
+                            <swaggerDirectory>${basedir}/generated/swagger-ui</swaggerDirectory>
+                            <swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader
+                            </swaggerApiReader>
+                            <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                            <modelConverters>io.swagger.validator.BeanValidator</modelConverters>
+
+                            <!--<swaggerExtensions>
+                                <swaggerExtension>com.example.VendorExtension</swaggerExtension>
+                            </swaggerExtensions>-->
+                            <!--<enabledObjectMapperFeatures>
+                                <feature>com.fasterxml.jackson.databind.SerializationFeature.WRITE_ENUMS_USING_TO_STRING</feature>
+                                <feature>com.fasterxml.jackson.core.JsonParser$Feature.ALLOW_NUMERIC_LEADING_ZEROS</feature>
+                            </enabledObjectMapperFeatures>-->
+                            <!--<disabledObjectMapperFeatures>
+                                <feature>com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS</feature>
+                            </disabledObjectMapperFeatures>-->
+
+                            <!--<operationIdFormat>{{className}}_{{methodName}}_{{httpMethod}}</operationIdFormat>-->
+                            <!--<externalDocs>-->
+                            <!--<description>Example external docs</description>-->
+                            <!--<url>https://example.com/docs</url>-->
+                            <!--</externalDocs>-->
+
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-hibernate-validations</artifactId>
+                        <version>1.5.6</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <!--部署文档到yapi-->
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <source>
+                        def apis = new File("${properties['yapi.json']}").text
+                        def url = new URL("${properties['yapi.url']}")
+                        HttpURLConnection connection = url.openConnection()
+                        connection.setRequestMethod("POST")
+                        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+                        connection.setDoOutput(true);
+                        connection.setDoInput(true);
+                        connection.setUseCaches(false);
+                        connection.setInstanceFollowRedirects(true);
+                        connection.connect();
+                        connection.setConnectTimeout(20 * 1000);
+                        connection.setReadTimeout(20 * 1000);
+
+                        DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+                        def parameterData = "type=swagger&amp;" + "merge=${properties['yapi.merge']}&amp;" + "token=${properties['yapi.token']}&amp;" + "json=${apis}"
+
+                        byte[] t = parameterData.getBytes("utf-8");
+                        dataOutputStream.write(t);
+                        dataOutputStream.flush();
+                        dataOutputStream.close();
+
+                        InputStream inputStream = connection.getInputStream();//
+
+                        reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                        String lines;
+                        response = new StringBuffer("");
+                        while ((lines = reader.readLine()) != null) {
+                            response.append(lines);
+                            response.append("\r\n");
+                        }
+                        inputStream.close()
+                        connection.disconnect()
+                        println "==========="
+                        println response
+                        println "==========="
+                    </source>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!--maven镜像设置-->
+    <repositories>
+        <repository>
+            <id>nexus-tencentyun</id>
+            <name>Nexus tencentyun</name>
+            <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-tencentyun</id>
+            <name>Nexus tencentyun</name>
+            <url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
