@@ -18,13 +18,7 @@
         <module>../bom</module>
         <module>../api</module>
         <module>../core</module>
-        <module>../model</module>
-        <module>../service</module>
-        <module>../monitor</module>
-        <module>../app</module>
-        <module>../gateway</module>
-        <module>../jobs</module>
-        <module>../admin</module>
+        <module>../business</module>
     </modules>
 
 </project>
