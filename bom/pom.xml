@@ -31,13 +31,41 @@
         <maven.compiler.target>8</maven.compiler.target>
         <maven.compiler.encoding>utf-8</maven.compiler.encoding>
 
-        <version.spring.cloud>Hoxton.SR9</version.spring.cloud>
+        <version.spring.cloud>2020.0.0</version.spring.cloud>
         <version.spring.boot>2.4.1</version.spring.boot>
+        <version.spring.alibaba>2.2.1.RELEASE</version.spring.alibaba>
+
         <version.dynamic-datasource>3.2.1</version.dynamic-datasource>
         <version.druid-datasource>1.2.4</version.druid-datasource>
         <version.mybatis.plus>3.4.1</version.mybatis.plus>
         <version.spring-boot-admin>2.3.1</version.spring-boot-admin>
         <version.org.mapstruct>1.4.1.Final</version.org.mapstruct>
+        <version.jetcache>2.6.0</version.jetcache>
+        <version.spring-boot.retrofit>2.2.5</version.spring-boot.retrofit>
+        <version.retrofit>2.9.0</version.retrofit>
+        <version.minio>1.1</version.minio>
+        <version.jdialects>4.0.0.jre8</version.jdialects>
+        <version.p6spy>3.9.1</version.p6spy>
+        <version.log4jdbc>1.2</version.log4jdbc>
+        <version.json-schema-validator>2.2.14</version.json-schema-validator>
+        <version.fst>2.56</version.fst>
+        <version.myexcel>3.10.0</version.myexcel>
+        <version.parseq>4.0.1</version.parseq>
+        <version.reflections>0.9.12</version.reflections>
+        <version.joda-time>2.10.8</version.joda-time>
+        <version.commons-io>2.8.0</version.commons-io>
+        <version.commons-lang3>3.11</version.commons-lang3>
+        <version.commons-codec>1.15</version.commons-codec>
+        <version.hutool-all>5.5.2</version.hutool-all>
+        <version.urlrewritefilter>4.0.3</version.urlrewritefilter>
+        <version.easy-captcha>1.6.2</version.easy-captcha>
+        <version.UserAgentUtils>1.21</version.UserAgentUtils>
+        <version.jasypt-spring-boot-starter>3.0.3</version.jasypt-spring-boot-starter>
+        <version.sentry>3.2.0</version.sentry>
+        <version.sentry-log4j2>3.2.0</version.sentry-log4j2>
+        <version.skywalking-logback>8.3.0</version.skywalking-logback>
+        <version.lombok>1.18.16</version.lombok>
+        <version.xxl-job>2.2.0</version.xxl-job>
 
     </properties>
 
@@ -54,50 +82,41 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.2.1.RELEASE</version>
+                <version>${version.spring.alibaba}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--spring boot -->
-            <!--<dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${version.spring.boot}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>-->
 
             <!-- 缓存 -->
             <dependency>
                 <groupId>com.alicp.jetcache</groupId>
                 <artifactId>jetcache-redis-springdata</artifactId>
-                <version>2.6.0</version>
+                <version>${version.jetcache}</version>
             </dependency>
 
             <!--httpclient 相关-->
             <dependency>
                 <groupId>com.github.lianjiatech</groupId>
                 <artifactId>retrofit-spring-boot-starter</artifactId>
-                <version>2.2.5</version>
+                <version>${version.spring-boot.retrofit}</version>
             </dependency>
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>retrofit</artifactId>
-                <version>2.9.0</version>
+                <version>${version.retrofit}</version>
             </dependency>
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>converter-jackson</artifactId>
-                <version>2.9.0</version>
+                <version>${version.retrofit}</version>
             </dependency>
 
             <!--minio 组件-->
             <dependency>
                 <groupId>com.jlefebure</groupId>
                 <artifactId>spring-boot-starter-minio</artifactId>
-                <version>1.1</version>
+                <version>${version.minio}</version>
             </dependency>
-
             <!--数据连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -114,13 +133,13 @@
             <dependency>
                 <groupId>com.github.drinkjava2</groupId>
                 <artifactId>jdialects</artifactId>
-                <version>4.0.0.jre8</version>
+                <version>${version.jdialects}</version>
             </dependency>
             <!--sql 日志-->
             <dependency>
                 <groupId>p6spy</groupId>
                 <artifactId>p6spy</artifactId>
-                <version>3.9.1</version>
+                <version>${version.p6spy}</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.log4jdbc</groupId>
@@ -156,32 +175,28 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${version.mybatis.plus}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.github.java-json-tools</groupId>
                 <artifactId>json-schema-validator</artifactId>
-                <version>2.2.14</version>
+                <version>${version.json-schema-validator}</version>
             </dependency>
-
             <dependency>
                 <groupId>de.ruedigermoeller</groupId>
                 <artifactId>fst</artifactId>
-                <version>2.56</version>
+                <version>${version.fst}</version>
             </dependency>
-
             <!--excel 工具类-->
             <dependency>
                 <groupId>com.github.liaochong</groupId>
                 <artifactId>myexcel</artifactId>
-                <version>3.10.0</version>
+                <version>${version.myexcel}</version>
             </dependency>
             <!-- 异步的http client -->
             <dependency>
                 <groupId>com.linkedin.parseq</groupId>
                 <artifactId>parseq</artifactId>
-                <version>4.0.1</version>
+                <version>${version.parseq}</version>
             </dependency>
-
             <!--基础工具类-->
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -192,92 +207,89 @@
             <dependency>
                 <groupId>org.reflections</groupId>
                 <artifactId>reflections</artifactId>
-                <version>0.9.12</version>
+                <version>${version.reflections}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.10.8</version>
+                <version>${version.joda-time}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.8.0</version>
+                <version>${version.commons-io}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.11</version>
+                <version>${version.commons-lang3}</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.15</version>
+                <version>${version.commons-codec}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>5.5.2</version>
+                <version>${version.hutool-all}</version>
             </dependency>
             <dependency>
                 <groupId>org.tuckey</groupId>
                 <artifactId>urlrewritefilter</artifactId>
-                <version>4.0.3</version>
+                <version>${version.urlrewritefilter}</version>
             </dependency>
             <!-- Java图形验证码 -->
             <dependency>
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
-                <version>1.6.2</version>
+                <version>${version.easy-captcha}</version>
             </dependency>
             <!-- 解析客户端操作系统、浏览器信息 -->
             <dependency>
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
-                <version>1.21</version>
+                <version>${version.UserAgentUtils}</version>
             </dependency>
-
             <!--加解密-->
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>3.0.3</version>
+                <version>${version.jasypt-spring-boot-starter}</version>
             </dependency>
-
             <!--错误，监控相关-->
             <dependency>
                 <groupId>io.sentry</groupId>
                 <artifactId>sentry-spring-boot-starter</artifactId>
-                <version>3.2.0</version>
+                <version>${version.sentry}</version>
             </dependency>
             <dependency>
                 <groupId>io.sentry</groupId>
                 <artifactId>sentry-log4j2</artifactId>
-                <version>3.2.0</version>
+                <version>${version.sentry-log4j2}</version>
             </dependency>
-
             <!--其它-->
             <!--skywalking 日志插件-->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-logback-1.x</artifactId>
-                <version>8.3.0</version>
+                <version>${version.skywalking-logback}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-log4j-2.x</artifactId>
-                <version>8.3.0</version>
+                <version>${version.skywalking-logback}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>${version.lombok}</version>
                 <optional>true</optional>
             </dependency>
             <dependency>
                 <groupId>com.xuxueli</groupId>
                 <artifactId>xxl-job-core</artifactId>
-                <version>2.2.0</version>
+                <version>${version.xxl-job}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -294,6 +306,8 @@
                 <includes>
                     <include>**/application*.yml</include>
                     <include>**/application*.yaml</include>
+                    <include>**/bootstrap*.yml</include>
+                    <include>**/bootstrap*.yaml</include>
                     <include>**/application*.properties</include>
                     <include>**/log4j.xml</include>
                     <include>**/log4j2.xml</include>
@@ -305,7 +319,8 @@
                 <excludes>
                     <exclude>**/application*.yml</exclude>
                     <exclude>**/application*.yaml</exclude>
-                    <exclude>**/application*.properties</exclude>
+                    <exclude>**/bootstrap*.yml</exclude>
+                    <exclude>**/bootstrap*.yaml</exclude>
                     <exclude>**/application*.properties</exclude>
                     <exclude>**/log4j.xml</exclude>
                     <exclude>**/log4j2.xml</exclude>
@@ -363,19 +378,6 @@
                 <version>6.0.3</version>
             </plugin>
 
-            <!--<plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.18.16.0</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>delombok</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -385,7 +387,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.16</version>
+                            <version>${version.lombok}</version>
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
@@ -395,6 +397,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -431,11 +434,11 @@
                     <version>2.7.0</version>
                     <configuration>
                         <to>
-                            <image>${groupId}/${artifactId}:${version}</image>
+                            <image>${project.groupId}/${project.artifactId}:${project.version}</image>
                             <tags>
-                                <tag>${groupId}</tag>
-                                <tag>${artifactId}</tag>
-                                <tag>${version}</tag>
+                                <tag>${project.groupId}</tag>
+                                <tag>${project.artifactId}</tag>
+                                <tag>${project.version}</tag>
                             </tags>
                         </to>
                     </configuration>
