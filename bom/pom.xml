@@ -61,7 +61,7 @@
         <version.skywalking-logback>8.3.0</version.skywalking-logback>
         <version.lombok>1.18.16</version.lombok>
         <version.xxl-job>2.2.0</version.xxl-job>
-
+        <version.nacos>0.2.7</version.nacos>
     </properties>
 
     <dependencyManagement>
@@ -81,6 +81,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${version.nacos}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+                <version>${version.nacos}</version>
+            </dependency>
+
 
             <!-- 缓存 -->
             <dependency>
