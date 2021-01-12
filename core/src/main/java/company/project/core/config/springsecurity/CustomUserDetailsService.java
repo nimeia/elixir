@@ -1,6 +1,6 @@
-package company.project.app.config.springsecurity;
+package company.project.core.config.springsecurity;
 
-import company.project.app.config.springsecurity.exception.MoreThanOneUserException;
+import company.project.core.config.springsecurity.exception.MoreThanOneUserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

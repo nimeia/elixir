@@ -1,4 +1,4 @@
-package company.project.app.config.springsecurity;
+package company.project.core.config.springsecurity;
 
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,9 +1,9 @@
-package company.project.app.config;
+package company.project.core.config;
 
 import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import company.project.app.config.springsecurity.CustomSecurityMetadataSource;
+import company.project.core.config.springsecurity.CustomSecurityMetadataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

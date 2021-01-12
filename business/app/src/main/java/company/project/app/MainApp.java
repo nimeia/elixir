@@ -12,12 +12,12 @@ import org.springframework.cache.annotation.EnableCaching;
  */
 @SpringBootApplication
 @EnableCaching
-public class ProjectApp {
+public class MainApp {
 
     public static void main(String[] args) {
         SpringApplicationBuilder builder = new SpringApplicationBuilder();
-        builder.main(ProjectApp.class)
-                .sources(new Class<?>[]{ProjectApp.class})
+        builder.main(MainApp.class)
+                .sources(new Class<?>[]{MainApp.class})
                 .listeners(new ApplicationPidFileWriter())
                 .build()
                 .run(args);

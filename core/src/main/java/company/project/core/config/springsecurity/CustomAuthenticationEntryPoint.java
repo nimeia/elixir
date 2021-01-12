@@ -1,4 +1,4 @@
-package company.project.app.config.springsecurity;
+package company.project.core.config.springsecurity;
 
 import cn.hutool.core.util.IdUtil;
 import company.project.api.base.response.ApiSimpleResponse;

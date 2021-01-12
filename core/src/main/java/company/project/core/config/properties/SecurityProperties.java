@@ -1,4 +1,4 @@
-package company.project.app.config.properties;
+package company.project.core.config.properties;
 
 import java.io.Serializable;
 

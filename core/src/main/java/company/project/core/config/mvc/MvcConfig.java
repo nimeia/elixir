@@ -1,4 +1,4 @@
-package company.project.app.config.mvc;
+package company.project.core.config.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

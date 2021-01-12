@@ -1,4 +1,4 @@
-package company.project.app.config.springsecurity.exception;
+package company.project.core.config.springsecurity.exception;
 
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 

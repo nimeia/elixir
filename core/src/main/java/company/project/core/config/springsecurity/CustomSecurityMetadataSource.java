@@ -1,4 +1,4 @@
-package company.project.app.config.springsecurity;
+package company.project.core.config.springsecurity;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.internal.util.StringUtil;

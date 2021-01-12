@@ -1,4 +1,4 @@
-package company.project.app.config;
+package company.project.core.config;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;

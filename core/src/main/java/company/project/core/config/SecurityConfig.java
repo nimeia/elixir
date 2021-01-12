@@ -1,6 +1,6 @@
-package company.project.app.config;
+package company.project.core.config;
 
-import company.project.app.config.springsecurity.*;
+import company.project.core.config.springsecurity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

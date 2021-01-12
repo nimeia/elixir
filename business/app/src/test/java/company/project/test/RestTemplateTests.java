@@ -1,6 +1,6 @@
 package company.project.test;
 
-import company.project.app.ProjectApp;
+import company.project.app.MainApp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(classes = {ProjectApp.class})
+@SpringBootTest(classes = {MainApp.class})
 public class RestTemplateTests {
 
     @Test
