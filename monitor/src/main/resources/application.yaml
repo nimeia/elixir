@@ -1,14 +1,37 @@
-server:
-  port: 8081
-  address: localhost
+server :
+  port : 8081
+  address : localhost
 
-spring:
-  boot:
-    admin:
-      client:
-        enabled: true
-        url: http://localhost:8081/monitor
-        instance:
-          name: monitor
-          prefer-ip: true
-      context-path: /monitor
+eureka :
+  client:
+    service-url :
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    register-with-eureka : true
+  instance :
+    instance-id : @project.artifactId@
+    prefer-ip-address : true
+    hostname : 127.0.0.1
+    home-page-url-path : /
+
+spring :
+  boot :
+    admin :
+      client :
+        enabled : true
+        url : http://localhost:8081/monitor
+        instance :
+          name : monitor
+          prefer-ip : true
+      context-path : /monitor
+  application :
+    name : @project.artifactId@
+
+logging :
+  level :
+    p6spy : info
+  file :
+    name : @project.artifactId@
+    path : ./log
+sentry :
+  dsn : http://c6715a73355a45ec948d9e0e668c0233@10.168.2.142:9000/2
+  sentry-client-name : @project.artifactId@
