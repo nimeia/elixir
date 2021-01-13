@@ -116,6 +116,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(securityProperties.getFailureForwardUrl()).permitAll()
                 .antMatchers(securityProperties.getValidCodeImgUrl()).permitAll()
                 .antMatchers(securityProperties.getDefaultSuccessUrl()).permitAll()
+                .antMatchers(securityProperties.getIgnoreUrl()).permitAll()
                 .anyRequest().authenticated();
 
 
