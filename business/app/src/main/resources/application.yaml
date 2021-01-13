@@ -75,6 +75,7 @@ spring :
     user : ${spring.datasource.druid.username}
   session :
     store-type : hazelcast
+    timeout : 3600
   cache :
     jcache :
       provider : com.hazelcast.cache.HazelcastCachingProvider
