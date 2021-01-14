@@ -325,3 +325,187 @@ userRepos.save(userEntity);
         };
     }
 ```
+
+### retorfit 使用样例
+
+使用了 `retrofit-spring-boot-starter` 直接集成 ,详情见 https://github.com/LianjiaTech/retrofit-spring-boot-starter
+
+```java
+@RetrofitClient(baseUrl = "${baseurl}")
+public interface HttpApi {
+
+    @OkHttpClientBuilder
+    static OkHttpClient.Builder okhttpClientBuilder() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.SECONDS)
+                .readTimeout(1, TimeUnit.SECONDS)
+                .writeTimeout(1, TimeUnit.SECONDS);
+
+    }
+
+    @GET
+    Result<Person> getPerson(@Url String url, @Query("id") Long id);
+}
+```
+
+在spring 中直接注入即可
+
+```java
+@Service
+public class TestService {
+
+    @Autowired
+    private HttpApi httpApi;
+
+    public void test() {
+        // 通过httpApi发起http请求
+    }
+}
+```
+
+## xxl-job 集成
+
+`xxl job` 有多种集成方式，样例中使用了最基本的方式，实际项目里请按当前需求自行选择
+
+样例：
+
+```java
+/**
+ * 用户定时任务
+ *
+ * @author huang
+ */
+@Slf4j
+public class UserSyncJobHandler extends IJobHandler {
+
+    @Override
+    public ReturnT<String> execute(String s) throws Exception {
+        log.info("任务完成");
+        ReturnT<String> t = new ReturnT<>(200, "任务完成");
+        return t;
+    }
+}
+```
+
+xxljob 配置
+
+```java
+@Value("${xxl.job.admin.addresses}")
+private String adminAddresses;
+
+@Value("${xxl.job.accessToken}")
+private String accessToken;
+
+@Value("${xxl.job.executor.appname}")
+private String appname;
+
+@Value("${xxl.job.executor.address}")
+private String address;
+
+@Value("${xxl.job.executor.ip}")
+private String ip;
+
+@Value("${xxl.job.executor.port}")
+private int port;
+
+@Value("${xxl.job.executor.logpath}")
+private String logPath;
+
+@Value("${xxl.job.executor.logretentiondays}")
+private int logRetentionDays;
+
+@Autowired
+UserSyncJobHandler userSyncJobHandler;
+
+@Bean
+public XxlJobSpringExecutor xxlJobExecutor() {
+    logger.info(">>>>>>>>>>> xxl-job config init.");
+    XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+    xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
+    xxlJobSpringExecutor.setAppname(appname);
+    xxlJobSpringExecutor.setAddress(address);
+    xxlJobSpringExecutor.setIp(ip);
+    xxlJobSpringExecutor.setPort(port);
+    xxlJobSpringExecutor.setAccessToken(accessToken);
+    xxlJobSpringExecutor.setLogPath(logPath);
+    xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);
+
+    XxlJobSpringExecutor.registJobHandler("userSyncJobHandler",userSyncJobHandler);
+    return xxlJobSpringExecutor;
+}
+```
+
+按本项目的惯例，真实的`job` 的业务代码会放到`service`模块中，而`xxl-job` 的配置放到 `job` 主运行项目中，通过引用 `service` 模块。这样的好处是可根据系统的规模决定 `job` 是否部署到主项目中。
+
+![image-20210114090112224](/img/image-20210114090112224.png)![image-20210114090125674](/img/image-20210114090125674.png)
+
+## SKYWALKING 集成
+
+项目中集成了 `skywalking` 到日志中。其它功能需要在启动项目时导入 `skywalking agent` 来启用
+
+## EXCEL 工具集成
+
+项目中有两个工具包集成了`excel`生成功能
+
+- 一个直接使用`hutools` 的相关工具类
+
+- 一个直接使用`myexcel` 的相关工具类
+
+## NACOS 集成
+
+`nacos` 只集成了配置中心功能，没有集成注册中心
+
+## CACHE 集成
+
+为了简化系统的架构，考虑到大部分系统的规模，架构中默认不集成`redis` ,使用`hazelcast`替换。如果有需要可以替换到`redis`
+
+## SESSION 共享集成
+
+系统中集成`spring session` + `hazelcast` 完成会话共享，为了实现前后端集成，默认使用了 `token` 代替 `cookie session`。可以通过下面配置完成两种方式的选择, 需要替换成`cookie` ，注释掉下面代码即可。
+
+```java
+@Bean
+HttpSessionIdResolver httpSessionIdResolver() {
+    return HeaderHttpSessionIdResolver.xAuthToken();
+}
+```
+
+
+
+## CORS 配置
+
+前后端分离项目很多情况下需要跨域调用，可以通过下面配置对应的域名，默认允许所有网站
+
+```java
+@ConditionalOnProperty(prefix = "core.cors", name = "enabled", havingValue = "true", matchIfMissing = true)
+public class CorsConfig {
+    @Autowired
+    CorsProperties corsProperties
+    @Bean
+    public CorsFilter corsFilter() {
+        log.info("start to config using :{}", corsProperties);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(corsProperties.getAllowCredentials());
+        config.addAllowedOrigin(corsProperties.getAllowedOrigin());
+        config.addAllowedHeader(corsProperties.getAllowedHeader());
+        config.addAllowedMethod(corsProperties.getAllowedMethod());
+
+        if (corsProperties.getConfigPath() != null && corsProperties.getConfigPath().length > 0) {
+            for (String path : corsProperties.getConfigPath()) {
+                source.registerCorsConfiguration(path, config);
+            }
+        }
+        return new CorsFilter(source);
+    }
+}
+```
+
+## 登录认证集成
+
+
+
+## spring boot admin 集成
+
+由于没有使用注册中心，所有使用`spring boot admin client` 的方式集成，直接配置`spring boot admin` 的地址即可
+

@@ -38,9 +38,9 @@ spring :
   datasource :
     druid :
       #      driver-class-name: com.mysql.cj.jdbc.Driver
-      #      url: jdbc:mysql://10.168.2.142:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+      #      url: jdbc:mysql://10.168.2.142:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
       driver-class-name : com.p6spy.engine.spy.P6SpyDriver
-      url : jdbc:p6spy:mysql://127.0.0.1:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+      url : jdbc:p6spy:mysql://127.0.0.1:3306/app?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT&allowPublicKeyRetrieval=true
       username : ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
       password : ENC(W/weR/Um/pwb9TnIi1IzDxVNGgcMX0wPqqDMC2WqE3WDuvJ6oAD04qlHsQCNuUeU)
       filter :
@@ -82,6 +82,15 @@ spring :
     type : hazelcast
   messages :
     basename : messages/message
+  boot :
+    admin :
+      client :
+        enabled : true
+        url : http://localhost:8081/monitor
+        instance :
+          name : @project.artifactId@
+          prefer-ip : true
+
 #    cache-names :
 
 jasypt :
