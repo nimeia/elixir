@@ -91,8 +91,6 @@ spring :
           name : @project.artifactId@
           prefer-ip : true
 
-#    cache-names :
-
 jasypt :
   encryptor :
     password : 11112222
