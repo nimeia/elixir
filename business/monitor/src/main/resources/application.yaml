@@ -1,6 +1,5 @@
 server :
   port : 8081
-  address : localhost
 
 eureka :
   client:
@@ -17,7 +16,7 @@ spring :
   boot :
     admin :
       client :
-        enabled : true
+        enabled : false
         url : http://localhost:8081/monitor
         instance :
           name : monitor
