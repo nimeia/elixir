@@ -22,6 +22,10 @@ public class SecurityProperties implements Serializable {
 
     private Boolean validCodeEnabled = false;
 
+    private Boolean metadataSource = true;
+
+    private Boolean userDetailsService = true;
+
     /**
      * 不做安全校验url
      */

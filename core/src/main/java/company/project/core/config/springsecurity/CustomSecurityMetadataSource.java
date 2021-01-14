@@ -6,6 +6,7 @@ import com.hazelcast.replicatedmap.ReplicatedMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.access.ConfigAttribute;
@@ -24,6 +25,7 @@ import java.util.*;
  */
 @Component
 @Slf4j
+@ConditionalOnProperty(prefix = "core.security", name = "metadataSource", havingValue = "true", matchIfMissing = true)
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
     public static final String SECURITY_METADATA_SOURCE_MAP = "SecurityMetaDataSourceMap";

@@ -4,6 +4,7 @@ import company.project.core.config.springsecurity.exception.MoreThanOneUserExcep
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author huang
  */
 @Component
+@ConditionalOnProperty(prefix = "core.security", name = "userDetailsService", havingValue = "true", matchIfMissing = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);

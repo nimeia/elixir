@@ -520,5 +520,75 @@ boot :
 
 ## 登录认证集成
 
+### 启用图片校验码
 
+```yaml
+core :
+  security :
+    validCodeEnabled : true
+```
+
+### 认证流程
+
+#### 获取图片校验码
+
+- 请求
+
+```shell
+GET http://localhost:8080/login/validateCode?base64
+```
+
+- 返回
+
+```json
+{
+  "requestId": "5fffb219d35a0a16639f430e",
+  "code": "2000",
+  "success": true,
+  "message": "",
+  "businessMessage": "",
+  "data": {
+    "X-Auth-Token": "8d05348a-efd6-4961-8c87-3aea2aacf2a5",
+    "verCode": "data:image/gif;base64,"
+  }
+}
+```
+
+>  x-auth-token 认证时需要重新发回到服务器
+>
+> verCode 为base64 后的图片
+
+### 认证 
+
+当不需要图片校验码时需要去掉`X-Auth-Token`
+
+- 请求
+
+```http
+POST http://localhost:8080/login/process
+Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: 8d05348a-efd6-4961-8c87-3aea2aacf2a5
+
+username=admin&password=admin&validateCode=jteg
+```
+
+- 返回
+
+```json
+{
+  "requestId": "5fffb2fcd35a0a16639f4312",
+  "system": "app",
+  "code": "200",
+  "success": true,
+  "message": "login success",
+  "businessMessage": "登录成功",
+  "data": {
+    "X-Auth-Token": "8564575b-aeca-476b-a949-580cb48ec737"
+  }
+}
+```
+
+认证成功后会重新生成 `X-Auth-Token` ，后续请求需要带上该参数
+
+### 认证流程个性化
 

@@ -36,7 +36,7 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         //create jwt
         ApiSimpleResponse tokenResponse = new ApiSimpleResponse<>()
                 .businessMessage("登录成功")
-                .code("200")
+                .code(ApiSimpleResponse.RESPONSE_CODE_SUCCESS)
                 .requestId(IdUtil.objectId())
                 .system("app")
                 .success(true)

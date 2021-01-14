@@ -41,7 +41,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
             ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse()
                     .requestId(IdUtil.objectId())
-                    .code("500")
+                    .code(ApiSimpleResponse.RESPONSE_CODE_ERROR)
                     .system("app")
                     .data("")
                     .success(false)
