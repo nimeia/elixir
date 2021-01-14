@@ -107,9 +107,6 @@ management :
     prometheus :
       enabled : true
 
-# 图片校验码
-validCodeImgUrl : /login/validateCode
-
 core :
   hazelcast :
     appName : @project.artifactId@

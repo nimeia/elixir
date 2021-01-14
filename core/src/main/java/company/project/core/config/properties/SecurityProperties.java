@@ -55,5 +55,5 @@ public class SecurityProperties implements Serializable {
 
     private String defaultSuccessUrl = "/login/success";
 
-    private String validCodeImgUrl = "validCodeImgUrl";
+    private String validCodeImgUrl = "/login/validateCode";
 }
