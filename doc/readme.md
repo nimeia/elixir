@@ -501,11 +501,24 @@ public class CorsConfig {
 }
 ```
 
-## 登录认证集成
-
 
 
 ## spring boot admin 集成
 
 由于没有使用注册中心，所有使用`spring boot admin client` 的方式集成，直接配置`spring boot admin` 的地址即可
+
+```yaml
+boot :
+  admin :
+    client :
+      enabled : true
+      url : http://localhost:8081/monitor
+      instance :
+        name : @project.artifactId@
+        prefer-ip : true
+```
+
+## 登录认证集成
+
+
 

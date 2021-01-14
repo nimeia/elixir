@@ -58,10 +58,10 @@ spring :
         exclusions : \*.js,\*.gif,\*.jpg,\*.png,\*.css,\*.ico,/druid/*
         url-pattern : /*
       stat-view-servlet :
-#        当session 禁用时，不能配置用户密码
-#        login-username : admin
-#        login-password : admin
-#        url-pattern : /druid/*
+        #        当session 禁用时，不能配置用户密码
+        #        login-username : admin
+        #        login-password : admin
+        #        url-pattern : /druid/*
         enabled : true
       time-between-log-stats-millis : 300000
       test-while-idle : true
@@ -111,3 +111,5 @@ core :
     hazelcastIps :
       - 127.0.0.1
       - 127.0.0.1
+  security :
+    validCodeEnabled : true

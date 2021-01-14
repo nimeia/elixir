@@ -1,4 +1,4 @@
-GET http://localhost:8080/login/validateCode
+GET http://localhost:8080/login/validateCode?base64
 
 ### login
 POST http://localhost:8080/login/process

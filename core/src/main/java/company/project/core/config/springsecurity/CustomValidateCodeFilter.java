@@ -17,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @Slf4j
@@ -35,9 +37,29 @@ public class CustomValidateCodeFilter extends OncePerRequestFilter {
 
         String requestUrl = request.getRequestURI();
         if (StringUtil.equalsIgnoreCase(requestUrl, securityProperties.getValidCodeImgUrl())) {
-            // 使用gif验证码
-            GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 4);
-            CaptchaUtil.out(gifCaptcha, request, response);
+            String base64 = request.getParameter("base64");
+            if (base64 != null && !base64.equalsIgnoreCase("false")) {
+                GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 4);
+                String sessionId = request.getSession().getId();
+                Map map = new HashMap();
+                map.put("X-Auth-Token", sessionId);
+                map.put("verCode", gifCaptcha.toBase64());
+                ResponseUtils.jsonResponse(response,
+                        new ApiSimpleResponse<>()
+                                .requestId(IdUtil.objectId())
+                                .businessMessage("")
+                                .message("")
+                                .success(true)
+                                .code(ApiSimpleResponse.RESPONSE_CODE_SUCCESS)
+                                .data(map)
+                );
+                log.info("gifCaptcha:{}",gifCaptcha.text());
+            } else {
+                // 使用gif验证码
+                GifCaptcha gifCaptcha = new GifCaptcha(130, 48, 4);
+                CaptchaUtil.out(gifCaptcha, request, response);
+                log.info("gifCaptcha:{}",gifCaptcha.text());
+            }
 
             return;
         } else {
