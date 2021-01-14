@@ -44,6 +44,7 @@ public class CustomValidateCodeFilter extends OncePerRequestFilter {
                 Map map = new HashMap();
                 map.put("X-Auth-Token", sessionId);
                 map.put("verCode", gifCaptcha.toBase64());
+                request.getSession().setAttribute("captcha", gifCaptcha.text().toLowerCase());
                 ResponseUtils.jsonResponse(response,
                         new ApiSimpleResponse<>()
                                 .requestId(IdUtil.objectId())

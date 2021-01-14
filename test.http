@@ -3,13 +3,14 @@ GET http://localhost:8080/login/validateCode?base64
 ### login
 POST http://localhost:8080/login/process
 Content-Type: application/x-www-form-urlencoded
+X-Auth-Token: 4794fe92-9724-4e90-afe9-d6ff00be8520
 
-username=admin5&password=admin&validateCode=111
+username=admin5&password=admin&validateCode=QAbT
 
 ### permission test
 GET http://localhost:8080/admin/
 Content-Type: application/json
-X-Auth-Token: 681bee19-0199-4399-bacf-2a7c2c99ee59
+X-Auth-Token: 4794fe92-9724-4e90-afe9-d6ff00be8520
 
 
 ### useradd
