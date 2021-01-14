@@ -592,3 +592,76 @@ username=admin&password=admin&validateCode=jteg
 
 ### 认证流程个性化
 
+#### 配置个性化
+
+详见 `SecurityProperties` 
+
+### 用户认证交互流程
+
+如果需要个性化，需要重新实现 `UserDetailsService` ，同时 userDetailsService 调成`false`
+
+默认实现
+
+```java
+@Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+    //todo 增加用户锁定等业务处理逻辑
+    List<CustomUserDetails> customUserDetails = jdbcTemplate
+            .query(" select * from user where username = ? ",
+                    BeanPropertyRowMapper.newInstance(CustomUserDetails.class)
+                    , username);
+    if (customUserDetails == null || customUserDetails.size() == 0) {
+        logger.info("login fails cant find the user :{}", username);
+        throw new UsernameNotFoundException("user not exit!");
+    } else {
+        if (customUserDetails.size() > 1) {
+            logger.info("more than one user whith the name " + username);
+            throw new MoreThanOneUserException("more than one user whith the name " + username);
+        }
+        logger.info("user {} prepare to login ...", customUserDetails.get(0));
+        return customUserDetails.get(0);
+    }
+}
+```
+
+### 权限动态获取
+
+如果需要个性化动态获取权限，需要实现 `FilterInvocationSecurityMetadataSource` ，同时设置 `metadataSource` 为`false`
+
+```java
+@Override
+public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+    log.info("===========getAttributes: " + o);
+    ReplicatedMap<String, Collection<ConfigAttribute>> replicatedMap =
+            hazelcastInstance.getReplicatedMap(SECURITY_METADATA_SOURCE_MAP);
+
+    // Object中包含用户请求request
+    String url = ((FilterInvocation) o).getRequestUrl();
+    Iterator<String> iterator = replicatedMap.keySet().iterator();
+    while (iterator.hasNext()) {
+        String resURL = iterator.next();
+        if (!StringUtil.isNullOrEmpty(resURL) && pathMatcher.match(resURL, url)) {
+            return replicatedMap.get(resURL);
+        }
+    }
+    return null;
+}
+
+@Override
+public Collection<ConfigAttribute> getAllConfigAttributes() {
+    log.info("=============getAllConfigAttributes");
+    Collection<ConfigAttribute> values = new ArrayList<>();
+    ReplicatedMap<Object, Collection<ConfigAttribute>> replicatedMap = hazelcastInstance.getReplicatedMap(SECURITY_METADATA_SOURCE_MAP);
+    for (Collection<ConfigAttribute> value : replicatedMap.values()) {
+        values.addAll(value);
+    }
+    return values;
+}
+
+@Override
+public boolean supports(Class<?> clazz) {
+    log.info("===============" + clazz);
+    return true;
+}
+```
