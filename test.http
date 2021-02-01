@@ -1,3 +1,14 @@
+POST http://localhost:8080/upload
+X-Auth-Token: c184a35f-54fd-4772-a81a-155fbf741083
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="application"; filename="application.xml"
+
+< D:/dev/base-framework/business/app/src/main/resources/application.yaml
+--WebAppBoundary--
+
+###
 GET http://localhost:8080/login/validateCode?base64
 
 ### login
@@ -58,3 +69,4 @@ username=admin
 GET http://localhost:8080/_api/_status
 Content-Type: application/x-www-form-urlencoded
 X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267
+

@@ -90,12 +90,23 @@ spring :
         instance :
           name : @project.artifactId@
           prefer-ip : true
+  minio :
+    url : http://192.168.164.128:9000/
+    bucket : test
+    access-key : admin
+    secret-key : password
+
+  servlet:
+    multipart :
+      max-file-size : 10MB
 
 jasypt :
   encryptor :
     password : 11112222
 management :
   endpoint :
+    beans:
+      enabled : true
     httptrace :
       enabled : true
     shutdown :
@@ -104,6 +115,11 @@ management :
       enabled : true
     prometheus :
       enabled : true
+  endpoints :
+    enabled-by-default : true
+    web :
+      exposure :
+        include : beans,info,health,env,metrics,mappings,prometheus
 
 core :
   hazelcast :
@@ -112,4 +128,10 @@ core :
       - 127.0.0.1
       - 127.0.0.1
   security :
-    validCodeEnabled : true
+    validCodeEnabled : false
+  minio :
+    enabled: true
+    url: http://192.168.164.128:9000
+    accessKey: admin
+    secretKey: password
+    bucket: ssss
