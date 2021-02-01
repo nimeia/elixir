@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
     </parent>
 
     <groupId>org.example</groupId>
@@ -38,7 +38,8 @@
         <version.jetcache>2.6.0</version.jetcache>
         <version.spring-boot.retrofit>2.2.5</version.spring-boot.retrofit>
         <version.retrofit>2.9.0</version.retrofit>
-        <version.minio>1.1</version.minio>
+        <version.minio-spring-boot>1.1</version.minio-spring-boot>
+        <version.minio>8.0.3</version.minio>
         <version.jdialects>4.0.0.jre8</version.jdialects>
         <version.p6spy>3.9.1</version.p6spy>
         <version.log4jdbc>1.2</version.log4jdbc>
@@ -120,16 +121,21 @@
 
             <!--minio 组件-->
             <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${version.minio}</version>
+            </dependency>
+            <!--<dependency>
                 <groupId>com.jlefebure</groupId>
                 <artifactId>spring-boot-starter-minio</artifactId>
-                <version>${version.minio}</version>
+                <version>${minio-spring-boot}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-logging</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency>-->
             <!--数据连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
