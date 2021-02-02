@@ -14,9 +14,13 @@ GET http://localhost:8080/login/validateCode?base64
 ### login
 POST http://localhost:8080/login/process
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: 0243dc3c-058d-4b2c-84a1-7dd082dec69c
+
 
 username=admin&password=admin&validateCode=725s
+
+###
+GET http://localhost:8080/restCall/test
+X-Auth-Token: 4364fc1b-7230-45e8-b208-476f5e53e9b1
 
 ### excel导出
 GET http://localhost:8080/excel/export
