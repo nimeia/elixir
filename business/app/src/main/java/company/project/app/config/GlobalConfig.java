@@ -25,7 +25,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "company.project.model.user.repos"
 })
 @ComponentScan(basePackages = {
-        "company.project.core.config",
         "company.project.service.user"
 })
 @Import(

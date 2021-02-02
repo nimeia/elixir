@@ -3,7 +3,9 @@ package company.project.core.config;
 import company.project.core.config.properties.OpenApiProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,8 @@ import java.util.Arrays;
 @Configuration
 @Slf4j
 @ConditionalOnProperty(prefix = "core.open-api", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnClass(name = {"org.tuckey.web.filters.urlrewrite.UrlRewriteFilter"})
+@EnableConfigurationProperties(value = {OpenApiProperties.class})
 public class OpenApiEnpointConfig {
 
     public OpenApiEnpointConfig() {

@@ -4,11 +4,13 @@ import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import company.project.core.config.properties.HazelcastProperties;
+import company.project.core.config.properties.OpenApiProperties;
 import company.project.core.config.springsecurity.CustomSecurityMetadataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.MapSession;
@@ -24,6 +26,7 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
 @Configuration
 @Slf4j
 @ConditionalOnProperty(prefix = "core.hazelcast", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(value = {HazelcastProperties.class})
 public class HttpSessionConfig {
 
     public HttpSessionConfig(){

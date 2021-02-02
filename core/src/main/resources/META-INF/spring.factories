@@ -1,2 +1,9 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-company.project.core.config.CoreConfig
+ company.project.core.config.CoreConfig, \
+ company.project.core.config.CorsConfig, \
+ company.project.core.config.OpenApiEnpointConfig, \
+ company.project.core.config.OkHttpConfig, \
+ company.project.core.config.MinioConfig, \
+ company.project.core.config.RestTemplateConfig, \
+ company.project.core.config.HttpSessionConfig, \
+ company.project.core.config.SecurityConfig

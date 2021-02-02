@@ -1,11 +1,14 @@
 package company.project.core.config;
 
+import company.project.core.config.properties.HazelcastProperties;
 import company.project.core.config.properties.SecurityProperties;
 import company.project.core.config.springsecurity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,6 +30,8 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @Slf4j
 @ConditionalOnProperty(prefix = "core.security", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(value = {SecurityProperties.class})
+@ComponentScan("company.project.core.config.springsecurity")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
