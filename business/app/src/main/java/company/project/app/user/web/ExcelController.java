@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * excel 导出样例，详细使用见 myexcel 相关文档
+ */
 @RestController
 @RequestMapping("excel")
 public class ExcelController {
