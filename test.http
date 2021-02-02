@@ -18,6 +18,10 @@ X-Auth-Token: 0243dc3c-058d-4b2c-84a1-7dd082dec69c
 
 username=admin&password=admin&validateCode=725s
 
+### excel导出
+GET http://localhost:8080/excel/export
+X-Auth-Token: c412efe9-7d8c-4d0b-b74b-5c8119850332
+
 ###
 GET http://localhost:8080/upload/down/application.xml
 X-Auth-Token: 98da02ae-6216-4223-8353-b107b8335b72
