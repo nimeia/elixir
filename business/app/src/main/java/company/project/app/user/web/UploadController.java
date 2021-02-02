@@ -1,19 +1,18 @@
 package company.project.app.user.web;
 
+import cn.hutool.core.io.IoUtil;
 import company.project.core.config.MinioConfig;
 import company.project.core.config.properties.MinioProperties;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
-import io.minio.UploadObjectArgs;
+import io.minio.*;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -43,6 +42,16 @@ public class UploadController {
                     .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
                     .build());
         }
+    }
 
+    @RequestMapping(path = "/down/{filename}", method = RequestMethod.GET)
+    public void down(@PathVariable("filename") String filename, HttpServletResponse httpServletResponse) throws IOException, InvalidKeyException, InvalidResponseException, InsufficientDataException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException {
+        log.info("get the file:{} from minio ", filename);
+        GetObjectResponse minioClientObject = minioClient.getObject(GetObjectArgs.builder().bucket(minioProperties.getBucket()).object(filename).build());
+        Headers headers = minioClientObject.headers();
+        for (String name : headers.names()) {
+            httpServletResponse.addHeader(name,headers.get(name));
+        }
+        IoUtil.copy(minioClientObject,httpServletResponse.getOutputStream());
     }
 }
