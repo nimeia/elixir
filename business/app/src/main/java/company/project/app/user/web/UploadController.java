@@ -23,10 +23,10 @@ import java.util.Map;
 @Slf4j
 public class UploadController {
 
-    @Autowired
+    @Autowired(required = false)
     MinioClient minioClient;
 
-    @Autowired
+    @Autowired(required = false)
     MinioProperties minioProperties;
 
     @RequestMapping(method = RequestMethod.POST)

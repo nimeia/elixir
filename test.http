@@ -1,5 +1,25 @@
-POST http://localhost:8080/upload
-X-Auth-Token: c184a35f-54fd-4772-a81a-155fbf741083
+###
+GET http://{{host}}/login/validateCode?base64
+
+### login
+POST http://{{host}}/login/process
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=admin&validateCode=725s
+
+> {%
+    client.global.set("token",response.body.data["X-Auth-Token"])
+ %}
+
+### retrofit test
+GET http://{{host}}/restCall/retrofit
+Content-Type: application/json
+X-Auth-Token: {{token}}
+
+
+### 文件上传
+POST http://{{host}}/upload
+X-Auth-Token: {{token}}
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -7,40 +27,30 @@ Content-Disposition: form-data; name="application"; filename="application.xml"
 
 < D:/dev/base-framework/business/app/src/main/resources/application.yaml
 --WebAppBoundary--
-
 ###
-GET http://localhost:8080/login/validateCode?base64
-
-### login
-POST http://localhost:8080/login/process
-Content-Type: application/x-www-form-urlencoded
-
-
-username=admin&password=admin&validateCode=725s
-
-###
-GET http://localhost:8080/restCall/test
-X-Auth-Token: 4364fc1b-7230-45e8-b208-476f5e53e9b1
+GET http://{{host}}/restCall/test
+X-Auth-Token: {{token}}
 
 ### excel导出
-GET http://localhost:8080/excel/export
-X-Auth-Token: c412efe9-7d8c-4d0b-b74b-5c8119850332
+GET http://{{host}}/excel/export
+X-Auth-Token: {{token}}
 
 ###
-GET http://localhost:8080/upload/down/application.xml
-X-Auth-Token: 98da02ae-6216-4223-8353-b107b8335b72
-
+GET http://{{host}}/upload/down/application.xml
+X-Auth-Token: {{token}}
 
 ### permission test
-GET http://localhost:8080/admin/
+GET http://{{host}}/admin/
 Content-Type: application/json
-X-Auth-Token: 4794fe92-9724-4e90-afe9-d6ff00be8520
+X-Auth-Token: {{token}}
+
+
 
 
 ### useradd
-POST http://localhost:8080/user/addUser
+POST http://{{host}}/user/addUser
 Content-Type: application/json
-X-Auth-Token: 01877fb8-9d12-47a4-88fc-105b658f6bbf
+X-Auth-Token: {{token}}
 
 {
     "username": "admin5",
@@ -50,11 +60,10 @@ X-Auth-Token: 01877fb8-9d12-47a4-88fc-105b658f6bbf
     "enabled": true
 }
 
-
 ### updatepassword
-POST http://localhost:8080/user/updatePassword
+POST http://{{host}}/user/updatePassword
 Content-Type: application/json
-X-Auth-Token: 268aa250-d2dd-4f40-ae94-8beed84eebaf
+X-Auth-Token: {{token}}
 
 {
     "validCode": "admin5",
@@ -64,22 +73,19 @@ X-Auth-Token: 268aa250-d2dd-4f40-ae94-8beed84eebaf
 }
 
 ### userinfo
-POST http://localhost:8080/user
+POST http://{{host}}/user
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: 6143dd1d-50a8-4bc8-9233-b88fe793c525
-
+X-Auth-Token: {{token}}
 
 ### userinfo by open api
-POST http://localhost:8080/_api/user/
+POST http://{{host}}/_api/user/
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267
+X-Auth-Token: {{token}}
 
 username=admin
 
-
-
 ### userinfo by open api
-GET http://localhost:8080/_api/_status
+GET http://{{host}}/_api/_status
 Content-Type: application/x-www-form-urlencoded
-X-Auth-Token: 70b1e491-2ffc-4932-8ceb-9c4d37e68267
+X-Auth-Token: {{token}}
 

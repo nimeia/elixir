@@ -33,7 +33,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse()
                 .requestId(IdUtil.objectId())
-                .code(ApiSimpleResponse.RESPONSE_CODE_ERROR)
+                .code(ApiSimpleResponse.RESPONSE_LOGIN_NEED)
                 .system("app")
                 .data("")
                 .success(false)

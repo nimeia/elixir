@@ -30,7 +30,13 @@ public class CustomAuthenticationFailHandler extends SimpleUrlAuthenticationFail
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse().requestId(IdUtil.objectId()).code("500").success(false).system("app").message("not allow!").data(e.getMessage());
+        ApiSimpleResponse apiSimpleResponse = new ApiSimpleResponse()
+                .requestId(IdUtil.objectId())
+                .code(ApiSimpleResponse.RESPONSE_LOGIN_NEED)
+                .success(false)
+                .system("app")
+                .message("not allow!")
+                .data(e.getMessage());
         String username = request.getParameter("username");
 
         logger.error("user " + username + " login failure ", e);

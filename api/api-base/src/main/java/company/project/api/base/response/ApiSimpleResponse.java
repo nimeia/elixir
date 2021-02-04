@@ -10,8 +10,10 @@ import java.io.Serializable;
  */
 public class ApiSimpleResponse<T> implements Serializable {
 
-    public static final String RESPONSE_CODE_SUCCESS = "2000";
-    public static final String RESPONSE_CODE_ERROR = "5000";
+    public static final String RESPONSE_CODE_SUCCESS = "200";
+    public static final String RESPONSE_CODE_ERROR = "500";
+    public static final String RESPONSE_LOGIN_NEED = "401";
+    public static final String RESPONSE_FORBIDDEN = "403";
 
     /**
      * 标志某一个请求,可以按其跟踪一个接口的请求

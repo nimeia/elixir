@@ -6,4 +6,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
  company.project.core.config.MinioConfig, \
  company.project.core.config.RestTemplateConfig, \
  company.project.core.config.HttpSessionConfig, \
+ company.project.core.config.MvcConfig, \
  company.project.core.config.SecurityConfig
